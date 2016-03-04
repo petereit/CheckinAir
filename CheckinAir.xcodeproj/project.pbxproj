@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6916DC0E1979802F00393EE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6916DC0D1979802F00393EE3 /* Foundation.framework */; };
+		6916DC101979802F00393EE3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6916DC0F1979802F00393EE3 /* CoreGraphics.framework */; };
+		6916DC121979802F00393EE3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6916DC111979802F00393EE3 /* UIKit.framework */; };
+		692A96871C86780B0066183F /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 692A96431C86780B0066183F /* Main_iPad.storyboard */; };
+		692A96881C86780B0066183F /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 692A96451C86780B0066183F /* Main_iPhone.storyboard */; };
+		692A96891C86780B0066183F /* checkin2.js in Resources */ = {isa = PBXBuildFile; fileRef = 692A96471C86780B0066183F /* checkin2.js */; };
+		692A968A1C86780B0066183F /* CheckinAir-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 692A96481C86780B0066183F /* CheckinAir-Info.plist */; };
+		692A968B1C86780B0066183F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 692A964A1C86780B0066183F /* InfoPlist.strings */; };
+		692A968C1C86780B0066183F /* FWCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A964D1C86780B0066183F /* FWCAppDelegate.m */; };
+		692A968D1C86780B0066183F /* FWCDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A964F1C86780B0066183F /* FWCDonationViewController.m */; };
+		692A968E1C86780B0066183F /* FWCDonationWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A96511C86780B0066183F /* FWCDonationWebViewController.m */; };
+		692A968F1C86780B0066183F /* FWCFamilyTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A96531C86780B0066183F /* FWCFamilyTagView.m */; };
+		692A96901C86780B0066183F /* FWCFamilyTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 692A96541C86780B0066183F /* FWCFamilyTagView.xib */; };
+		692A96911C86780B0066183F /* FWCLaunchImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A96561C86780B0066183F /* FWCLaunchImageViewController.m */; };
+		692A96921C86780B0066183F /* FWCNameTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A96581C86780B0066183F /* FWCNameTagView.m */; };
+		692A96931C86780B0066183F /* FWCNameTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 692A96591C86780B0066183F /* FWCNameTagView.xib */; };
+		692A96941C86780B0066183F /* FWCParentTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A965B1C86780B0066183F /* FWCParentTagView.m */; };
+		692A96951C86780B0066183F /* FWCParentTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 692A965C1C86780B0066183F /* FWCParentTagView.xib */; };
+		692A96961C86780B0066183F /* FWCSubdomainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A965E1C86780B0066183F /* FWCSubdomainViewController.m */; };
+		692A96971C86780B0066183F /* FWCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A96601C86780B0066183F /* FWCViewController.m */; };
+		692A96981C86780B0066183F /* 1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96621C86780B0066183F /* 1024x1024.png */; };
+		692A96991C86780B0066183F /* 120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96631C86780B0066183F /* 120x120.png */; };
+		692A969A1C86780B0066183F /* 152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96641C86780B0066183F /* 152x152.png */; };
+		692A969B1C86780B0066183F /* 29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96651C86780B0066183F /* 29x29.png */; };
+		692A969C1C86780B0066183F /* 40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96661C86780B0066183F /* 40x40.png */; };
+		692A969D1C86780B0066183F /* 44x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96671C86780B0066183F /* 44x44.png */; };
+		692A969E1C86780B0066183F /* 50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96681C86780B0066183F /* 50x50.png */; };
+		692A969F1C86780B0066183F /* 512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96691C86780B0066183F /* 512x512.png */; };
+		692A96A01C86780B0066183F /* 58x58.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A966A1C86780B0066183F /* 58x58.png */; };
+		692A96A11C86780B0066183F /* 60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A966B1C86780B0066183F /* 60x60.png */; };
+		692A96A21C86780B0066183F /* 76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A966C1C86780B0066183F /* 76x76.png */; };
+		692A96A31C86780B0066183F /* 80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A966D1C86780B0066183F /* 80x80.png */; };
+		692A96A41C86780B0066183F /* 83.5x83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A966E1C86780B0066183F /* 83.5x83.5@2x.png */; };
+		692A96A51C86780B0066183F /* Brother QL-710W.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 692A966F1C86780B0066183F /* Brother QL-710W.jpg */; };
+		692A96A61C86780B0066183F /* Brother QL-710W.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96701C86780B0066183F /* Brother QL-710W.png */; };
+		692A96A71C86780B0066183F /* Brother QL-710W.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 692A96711C86780B0066183F /* Brother QL-710W.xcf */; };
+		692A96A81C86780B0066183F /* credit_32px.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 692A96721C86780B0066183F /* credit_32px.jpg */; };
+		692A96A91C86780B0066183F /* credit_48px.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 692A96731C86780B0066183F /* credit_48px.jpg */; };
+		692A96AA1C86780B0066183F /* credit_48px.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96741C86780B0066183F /* credit_48px.png */; };
+		692A96AB1C86780B0066183F /* credit_64px.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 692A96751C86780B0066183F /* credit_64px.jpg */; };
+		692A96AC1C86780B0066183F /* Icon Breeze.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 692A96761C86780B0066183F /* Icon Breeze.xcf */; };
+		692A96AD1C86780B0066183F /* Icon.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 692A96771C86780B0066183F /* Icon.xcf */; };
+		692A96AE1C86780B0066183F /* ipad-template-horiz.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A96781C86780B0066183F /* ipad-template-horiz.png */; };
+		692A96AF1C86780B0066183F /* Launch Image iPhone.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 692A967B1C86780B0066183F /* Launch Image iPhone.xcf */; };
+		692A96B01C86780B0066183F /* Launch Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 692A967C1C86780B0066183F /* Launch Image.png */; };
+		692A96B11C86780B0066183F /* Launch Image.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 692A967D1C86780B0066183F /* Launch Image.xcf */; };
+		692A96B21C86780B0066183F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 692A967E1C86780B0066183F /* Images.xcassets */; };
+		692A96B31C86780B0066183F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A967F1C86780B0066183F /* main.m */; };
+		692A96B41C86780B0066183F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 692A96801C86780B0066183F /* Settings.bundle */; };
+		692A96B51C86780B0066183F /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 692A96841C86780B0066183F /* SVProgressHUD.bundle */; };
+		692A96B61C86780B0066183F /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A96861C86780B0066183F /* SVProgressHUD.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		696C75C91C820DEE00016071 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6916DC0A1979802F00393EE3 /* CheckinAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckinAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6916DC0D1979802F00393EE3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6916DC0F1979802F00393EE3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6916DC111979802F00393EE3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6916DC2F1979802F00393EE3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		692A96441C86780B0066183F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		692A96461C86780B0066183F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		692A96471C86780B0066183F /* checkin2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = checkin2.js; sourceTree = "<group>"; };
+		692A96481C86780B0066183F /* CheckinAir-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CheckinAir-Info.plist"; sourceTree = "<group>"; };
+		692A96491C86780B0066183F /* CheckinAir-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CheckinAir-Prefix.pch"; sourceTree = "<group>"; };
+		692A964B1C86780B0066183F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		692A964C1C86780B0066183F /* FWCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWCAppDelegate.h; sourceTree = "<group>"; };
+		692A964D1C86780B0066183F /* FWCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWCAppDelegate.m; sourceTree = "<group>"; };
+		692A964E1C86780B0066183F /* FWCDonationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWCDonationViewController.h; sourceTree = "<group>"; };
+		692A964F1C86780B0066183F /* FWCDonationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWCDonationViewController.m; sourceTree = "<group>"; };
+		692A96501C86780B0066183F /* FWCDonationWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWCDonationWebViewController.h; sourceTree = "<group>"; };
+		692A96511C86780B0066183F /* FWCDonationWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWCDonationWebViewController.m; sourceTree = "<group>"; };
+		692A96521C86780B0066183F /* FWCFamilyTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWCFamilyTagView.h; sourceTree = "<group>"; };
+		692A96531C86780B0066183F /* FWCFamilyTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWCFamilyTagView.m; sourceTree = "<group>"; };
+		692A96541C86780B0066183F /* FWCFamilyTagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FWCFamilyTagView.xib; sourceTree = "<group>"; };
+		692A96551C86780B0066183F /* FWCLaunchImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWCLaunchImageViewController.h; sourceTree = "<group>"; };
+		692A96561C86780B0066183F /* FWCLaunchImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWCLaunchImageViewController.m; sourceTree = "<group>"; };
+		692A96571C86780B0066183F /* FWCNameTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWCNameTagView.h; sourceTree = "<group>"; };
+		692A96581C86780B0066183F /* FWCNameTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWCNameTagView.m; sourceTree = "<group>"; };
+		692A96591C86780B0066183F /* FWCNameTagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FWCNameTagView.xib; sourceTree = "<group>"; };
+		692A965A1C86780B0066183F /* FWCParentTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWCParentTagView.h; sourceTree = "<group>"; };
+		692A965B1C86780B0066183F /* FWCParentTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWCParentTagView.m; sourceTree = "<group>"; };
+		692A965C1C86780B0066183F /* FWCParentTagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FWCParentTagView.xib; sourceTree = "<group>"; };
+		692A965D1C86780B0066183F /* FWCSubdomainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWCSubdomainViewController.h; sourceTree = "<group>"; };
+		692A965E1C86780B0066183F /* FWCSubdomainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWCSubdomainViewController.m; sourceTree = "<group>"; };
+		692A965F1C86780B0066183F /* FWCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWCViewController.h; sourceTree = "<group>"; };
+		692A96601C86780B0066183F /* FWCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWCViewController.m; sourceTree = "<group>"; };
+		692A96621C86780B0066183F /* 1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1024x1024.png; sourceTree = "<group>"; };
+		692A96631C86780B0066183F /* 120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120x120.png; sourceTree = "<group>"; };
+		692A96641C86780B0066183F /* 152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 152x152.png; sourceTree = "<group>"; };
+		692A96651C86780B0066183F /* 29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29x29.png; sourceTree = "<group>"; };
+		692A96661C86780B0066183F /* 40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 40x40.png; sourceTree = "<group>"; };
+		692A96671C86780B0066183F /* 44x44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 44x44.png; sourceTree = "<group>"; };
+		692A96681C86780B0066183F /* 50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 50x50.png; sourceTree = "<group>"; };
+		692A96691C86780B0066183F /* 512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512x512.png; sourceTree = "<group>"; };
+		692A966A1C86780B0066183F /* 58x58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 58x58.png; sourceTree = "<group>"; };
+		692A966B1C86780B0066183F /* 60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 60x60.png; sourceTree = "<group>"; };
+		692A966C1C86780B0066183F /* 76x76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 76x76.png; sourceTree = "<group>"; };
+		692A966D1C86780B0066183F /* 80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 80x80.png; sourceTree = "<group>"; };
+		692A966E1C86780B0066183F /* 83.5x83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "83.5x83.5@2x.png"; sourceTree = "<group>"; };
+		692A966F1C86780B0066183F /* Brother QL-710W.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Brother QL-710W.jpg"; sourceTree = "<group>"; };
+		692A96701C86780B0066183F /* Brother QL-710W.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Brother QL-710W.png"; sourceTree = "<group>"; };
+		692A96711C86780B0066183F /* Brother QL-710W.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Brother QL-710W.xcf"; sourceTree = "<group>"; };
+		692A96721C86780B0066183F /* credit_32px.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = credit_32px.jpg; sourceTree = "<group>"; };
+		692A96731C86780B0066183F /* credit_48px.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = credit_48px.jpg; sourceTree = "<group>"; };
+		692A96741C86780B0066183F /* credit_48px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = credit_48px.png; sourceTree = "<group>"; };
+		692A96751C86780B0066183F /* credit_64px.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = credit_64px.jpg; sourceTree = "<group>"; };
+		692A96761C86780B0066183F /* Icon Breeze.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Icon Breeze.xcf"; sourceTree = "<group>"; };
+		692A96771C86780B0066183F /* Icon.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Icon.xcf; sourceTree = "<group>"; };
+		692A96781C86780B0066183F /* ipad-template-horiz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-template-horiz.png"; sourceTree = "<group>"; };
+		692A967B1C86780B0066183F /* Launch Image iPhone.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Launch Image iPhone.xcf"; sourceTree = "<group>"; };
+		692A967C1C86780B0066183F /* Launch Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Launch Image.png"; sourceTree = "<group>"; };
+		692A967D1C86780B0066183F /* Launch Image.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Launch Image.xcf"; sourceTree = "<group>"; };
+		692A967E1C86780B0066183F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		692A967F1C86780B0066183F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		692A96801C86780B0066183F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		692A96831C86780B0066183F /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		692A96841C86780B0066183F /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		692A96851C86780B0066183F /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		692A96861C86780B0066183F /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6916DC071979802F00393EE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6916DC101979802F00393EE3 /* CoreGraphics.framework in Frameworks */,
+				6916DC121979802F00393EE3 /* UIKit.framework in Frameworks */,
+				6916DC0E1979802F00393EE3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6916DC011979802F00393EE3 = {
+			isa = PBXGroup;
+			children = (
+				692A96BC1C86781A0066183F /* SVProgressHUD */,
+				692A96421C86780B0066183F /* CheckinWebView */,
+				6916DC0C1979802F00393EE3 /* Frameworks */,
+				6916DC0B1979802F00393EE3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6916DC0B1979802F00393EE3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6916DC0A1979802F00393EE3 /* CheckinAir.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6916DC0C1979802F00393EE3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6916DC0D1979802F00393EE3 /* Foundation.framework */,
+				6916DC0F1979802F00393EE3 /* CoreGraphics.framework */,
+				6916DC111979802F00393EE3 /* UIKit.framework */,
+				6916DC2F1979802F00393EE3 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		692A96421C86780B0066183F /* CheckinWebView */ = {
+			isa = PBXGroup;
+			children = (
+				692A96431C86780B0066183F /* Main_iPad.storyboard */,
+				692A96451C86780B0066183F /* Main_iPhone.storyboard */,
+				692A96471C86780B0066183F /* checkin2.js */,
+				692A96481C86780B0066183F /* CheckinAir-Info.plist */,
+				692A96491C86780B0066183F /* CheckinAir-Prefix.pch */,
+				692A964A1C86780B0066183F /* InfoPlist.strings */,
+				692A964C1C86780B0066183F /* FWCAppDelegate.h */,
+				692A964D1C86780B0066183F /* FWCAppDelegate.m */,
+				692A964E1C86780B0066183F /* FWCDonationViewController.h */,
+				692A964F1C86780B0066183F /* FWCDonationViewController.m */,
+				692A96501C86780B0066183F /* FWCDonationWebViewController.h */,
+				692A96511C86780B0066183F /* FWCDonationWebViewController.m */,
+				692A96521C86780B0066183F /* FWCFamilyTagView.h */,
+				692A96531C86780B0066183F /* FWCFamilyTagView.m */,
+				692A96541C86780B0066183F /* FWCFamilyTagView.xib */,
+				692A96551C86780B0066183F /* FWCLaunchImageViewController.h */,
+				692A96561C86780B0066183F /* FWCLaunchImageViewController.m */,
+				692A96571C86780B0066183F /* FWCNameTagView.h */,
+				692A96581C86780B0066183F /* FWCNameTagView.m */,
+				692A96591C86780B0066183F /* FWCNameTagView.xib */,
+				692A965A1C86780B0066183F /* FWCParentTagView.h */,
+				692A965B1C86780B0066183F /* FWCParentTagView.m */,
+				692A965C1C86780B0066183F /* FWCParentTagView.xib */,
+				692A965D1C86780B0066183F /* FWCSubdomainViewController.h */,
+				692A965E1C86780B0066183F /* FWCSubdomainViewController.m */,
+				692A965F1C86780B0066183F /* FWCViewController.h */,
+				692A96601C86780B0066183F /* FWCViewController.m */,
+				692A96611C86780B0066183F /* Icons */,
+				692A967E1C86780B0066183F /* Images.xcassets */,
+				692A967F1C86780B0066183F /* main.m */,
+				692A96801C86780B0066183F /* Settings.bundle */,
+				692A96811C86780B0066183F /* SVProgressHUD */,
+			);
+			path = CheckinWebView;
+			sourceTree = "<group>";
+		};
+		692A96611C86780B0066183F /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				692A96621C86780B0066183F /* 1024x1024.png */,
+				692A96631C86780B0066183F /* 120x120.png */,
+				692A96641C86780B0066183F /* 152x152.png */,
+				692A96651C86780B0066183F /* 29x29.png */,
+				692A96661C86780B0066183F /* 40x40.png */,
+				692A96671C86780B0066183F /* 44x44.png */,
+				692A96681C86780B0066183F /* 50x50.png */,
+				692A96691C86780B0066183F /* 512x512.png */,
+				692A966A1C86780B0066183F /* 58x58.png */,
+				692A966B1C86780B0066183F /* 60x60.png */,
+				692A966C1C86780B0066183F /* 76x76.png */,
+				692A966D1C86780B0066183F /* 80x80.png */,
+				692A966E1C86780B0066183F /* 83.5x83.5@2x.png */,
+				692A966F1C86780B0066183F /* Brother QL-710W.jpg */,
+				692A96701C86780B0066183F /* Brother QL-710W.png */,
+				692A96711C86780B0066183F /* Brother QL-710W.xcf */,
+				692A96721C86780B0066183F /* credit_32px.jpg */,
+				692A96731C86780B0066183F /* credit_48px.jpg */,
+				692A96741C86780B0066183F /* credit_48px.png */,
+				692A96751C86780B0066183F /* credit_64px.jpg */,
+				692A96761C86780B0066183F /* Icon Breeze.xcf */,
+				692A96771C86780B0066183F /* Icon.xcf */,
+				692A96781C86780B0066183F /* ipad-template-horiz.png */,
+				692A96791C86780B0066183F /* Launch Image */,
+				692A967A1C86780B0066183F /* Launch Image@2x */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
+		692A96791C86780B0066183F /* Launch Image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Launch Image";
+			sourceTree = "<group>";
+		};
+		692A967A1C86780B0066183F /* Launch Image@2x */ = {
+			isa = PBXGroup;
+			children = (
+				692A967B1C86780B0066183F /* Launch Image iPhone.xcf */,
+				692A967C1C86780B0066183F /* Launch Image.png */,
+				692A967D1C86780B0066183F /* Launch Image.xcf */,
+			);
+			path = "Launch Image@2x";
+			sourceTree = "<group>";
+		};
+		692A96811C86780B0066183F /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				692A96821C86780B0066183F /* DevMateKit */,
+				692A96831C86780B0066183F /* SVProgressHUD-Prefix.pch */,
+				692A96841C86780B0066183F /* SVProgressHUD.bundle */,
+				692A96851C86780B0066183F /* SVProgressHUD.h */,
+				692A96861C86780B0066183F /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		692A96821C86780B0066183F /* DevMateKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DevMateKit;
+			sourceTree = "<group>";
+		};
+		692A96BC1C86781A0066183F /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6916DC091979802F00393EE3 /* CheckinAir */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6916DC3F1979802F00393EE3 /* Build configuration list for PBXNativeTarget "CheckinAir" */;
+			buildPhases = (
+				6916DC061979802F00393EE3 /* Sources */,
+				6916DC071979802F00393EE3 /* Frameworks */,
+				6916DC081979802F00393EE3 /* Resources */,
+				696C75C91C820DEE00016071 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CheckinAir;
+			productName = CCBCheckinWebView;
+			productReference = 6916DC0A1979802F00393EE3 /* CheckinAir.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6916DC021979802F00393EE3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = FWC;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Family Worship Center";
+				TargetAttributes = {
+					6916DC091979802F00393EE3 = {
+						DevelopmentTeam = PGJ4NVH4M2;
+					};
+				};
+			};
+			buildConfigurationList = 6916DC051979802F00393EE3 /* Build configuration list for PBXProject "CheckinAir" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6916DC011979802F00393EE3;
+			productRefGroup = 6916DC0B1979802F00393EE3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6916DC091979802F00393EE3 /* CheckinAir */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6916DC081979802F00393EE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				692A96AD1C86780B0066183F /* Icon.xcf in Resources */,
+				692A96891C86780B0066183F /* checkin2.js in Resources */,
+				692A969C1C86780B0066183F /* 40x40.png in Resources */,
+				692A96AA1C86780B0066183F /* credit_48px.png in Resources */,
+				692A969D1C86780B0066183F /* 44x44.png in Resources */,
+				692A968A1C86780B0066183F /* CheckinAir-Info.plist in Resources */,
+				692A969A1C86780B0066183F /* 152x152.png in Resources */,
+				692A96AF1C86780B0066183F /* Launch Image iPhone.xcf in Resources */,
+				692A96B51C86780B0066183F /* SVProgressHUD.bundle in Resources */,
+				692A96A51C86780B0066183F /* Brother QL-710W.jpg in Resources */,
+				692A96991C86780B0066183F /* 120x120.png in Resources */,
+				692A96A61C86780B0066183F /* Brother QL-710W.png in Resources */,
+				692A969F1C86780B0066183F /* 512x512.png in Resources */,
+				692A96901C86780B0066183F /* FWCFamilyTagView.xib in Resources */,
+				692A96A31C86780B0066183F /* 80x80.png in Resources */,
+				692A96A21C86780B0066183F /* 76x76.png in Resources */,
+				692A96B11C86780B0066183F /* Launch Image.xcf in Resources */,
+				692A96B41C86780B0066183F /* Settings.bundle in Resources */,
+				692A96B21C86780B0066183F /* Images.xcassets in Resources */,
+				692A96881C86780B0066183F /* Main_iPhone.storyboard in Resources */,
+				692A96AB1C86780B0066183F /* credit_64px.jpg in Resources */,
+				692A96931C86780B0066183F /* FWCNameTagView.xib in Resources */,
+				692A96871C86780B0066183F /* Main_iPad.storyboard in Resources */,
+				692A96981C86780B0066183F /* 1024x1024.png in Resources */,
+				692A96AC1C86780B0066183F /* Icon Breeze.xcf in Resources */,
+				692A96A81C86780B0066183F /* credit_32px.jpg in Resources */,
+				692A96951C86780B0066183F /* FWCParentTagView.xib in Resources */,
+				692A96A71C86780B0066183F /* Brother QL-710W.xcf in Resources */,
+				692A96B01C86780B0066183F /* Launch Image.png in Resources */,
+				692A96A01C86780B0066183F /* 58x58.png in Resources */,
+				692A96A91C86780B0066183F /* credit_48px.jpg in Resources */,
+				692A96A41C86780B0066183F /* 83.5x83.5@2x.png in Resources */,
+				692A96A11C86780B0066183F /* 60x60.png in Resources */,
+				692A969B1C86780B0066183F /* 29x29.png in Resources */,
+				692A969E1C86780B0066183F /* 50x50.png in Resources */,
+				692A968B1C86780B0066183F /* InfoPlist.strings in Resources */,
+				692A96AE1C86780B0066183F /* ipad-template-horiz.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6916DC061979802F00393EE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				692A96B31C86780B0066183F /* main.m in Sources */,
+				692A96961C86780B0066183F /* FWCSubdomainViewController.m in Sources */,
+				692A968C1C86780B0066183F /* FWCAppDelegate.m in Sources */,
+				692A96911C86780B0066183F /* FWCLaunchImageViewController.m in Sources */,
+				692A968E1C86780B0066183F /* FWCDonationWebViewController.m in Sources */,
+				692A96921C86780B0066183F /* FWCNameTagView.m in Sources */,
+				692A96941C86780B0066183F /* FWCParentTagView.m in Sources */,
+				692A968F1C86780B0066183F /* FWCFamilyTagView.m in Sources */,
+				692A968D1C86780B0066183F /* FWCDonationViewController.m in Sources */,
+				692A96B61C86780B0066183F /* SVProgressHUD.m in Sources */,
+				692A96971C86780B0066183F /* FWCViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		692A96431C86780B0066183F /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				692A96441C86780B0066183F /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		692A96451C86780B0066183F /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				692A96461C86780B0066183F /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		692A964A1C86780B0066183F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				692A964B1C86780B0066183F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6916DC3D1979802F00393EE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6916DC3E1979802F00393EE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6916DC401979802F00393EE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CheckinWebView/CheckinAir-Prefix.pch";
+				INFOPLIST_FILE = "CheckinWebView/CheckinAir-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.FWCChurches.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = CheckinAir;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		6916DC411979802F00393EE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CheckinWebView/CheckinAir-Prefix.pch";
+				INFOPLIST_FILE = "CheckinWebView/CheckinAir-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.FWCChurches.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = CheckinAir;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6916DC051979802F00393EE3 /* Build configuration list for PBXProject "CheckinAir" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6916DC3D1979802F00393EE3 /* Debug */,
+				6916DC3E1979802F00393EE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6916DC3F1979802F00393EE3 /* Build configuration list for PBXNativeTarget "CheckinAir" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6916DC401979802F00393EE3 /* Debug */,
+				6916DC411979802F00393EE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6916DC021979802F00393EE3 /* Project object */;
+}
