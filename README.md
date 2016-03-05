@@ -1,5 +1,5 @@
 # CheckinAir
-Use iPads andAirPrint label printers with Breeze Church Management System Checkin
+Use iPads and AirPrint label printers with Breeze Church Management System Checkin
 
 Checkin Air allows you to use an iPad and AirPrint wireless label printers to check in children in the Breeze Church Management System.
 
