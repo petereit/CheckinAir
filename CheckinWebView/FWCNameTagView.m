@@ -106,6 +106,8 @@ NSString *subdomain;
     
 }
 
+//  The following code was ported from Breeze's assign_substitutions function in Checkin.js
+//  See http://www.breezechms.com/js/checkin2.js
 -(void) assign_substitutions:(NSDictionary *)nametag_fields person:(NSDictionary *)person{
     
     // set name (not user-defined on layout template)
@@ -115,6 +117,8 @@ NSString *subdomain;
     }
     @catch (NSException *exception) {} @finally {}
     
+    //  Objective-C can only switch on integers -- not strings, so I put all the fields
+    //  in an array and use their array position as the integer to switch on
     NSArray *fields = [NSArray arrayWithObjects: @"0", @"CODE", @"CODE3", @"CHILDLIST", @"CHILD", @"PARENTMOBILES", @"PARENTS", @"CELL", @"TAG", @"PROMPT", @"DATE", @"TIME", @"DATETIME", nil];
     
     for (NSString *field in nametag_fields) {
