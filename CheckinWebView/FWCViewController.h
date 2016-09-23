@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FWCNameTagView.h"
 #import "FWCParentTagView.h"
-#import "FWCFamilyTagView.h"
+//#import "FWCFamilyTagView.h"
 
 @interface FWCViewController : UIViewController <UIWebViewDelegate, NSURLConnectionDelegate, UIPrintInteractionControllerDelegate, UIPrinterPickerControllerDelegate>{
     NSMutableData *_responseData;

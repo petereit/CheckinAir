@@ -10,8 +10,8 @@
 
 #import "FWCViewController.h"
 #import "SVProgressHUD.h"
-#import "FWCNameTagView.h"
-#import "FWCParentTagView.h"
+//#import "FWCNameTagView.h"
+//#import "FWCParentTagView.h"
 
 @interface FWCViewController ()
 
