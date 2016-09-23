@@ -128,11 +128,20 @@ NSString *subdomain;
             [queryStringDictionary setObject:value forKey:key];
         }
         
+        //Determine if labels are to be printed
+        
+        //Get print_parent value
+        NSString *print_parent = [self.webView stringByEvaluatingJavaScriptFromString:
+                                      @"(function() "
+                                      "  {return $('input#print_parent').val();})"
+                                      "();"];
+        
+        
         //Get nametag fields from Breeze
         NSData *objectData = [[self.webView stringByEvaluatingJavaScriptFromString:
-                                        @"(function() "
-                                         "  {return JSON.stringify(nametag_fields);})"
-                                         "();"]
+                               @"(function() "
+                               "  {return JSON.stringify(nametag_fields);})"
+                               "();"]
                               dataUsingEncoding:NSUTF8StringEncoding];
         
         NSError *error = nil;
@@ -149,7 +158,7 @@ NSString *subdomain;
         {
             nametag_fields = object;
         }
-
+        
         NSArray *children = [[queryStringDictionary objectForKey:@"person_id"] componentsSeparatedByString:@","];
         NSMutableArray *childrenNames = [[NSMutableArray alloc] init];
         NSDictionary *person;
@@ -161,7 +170,7 @@ NSString *subdomain;
         
         for (NSString *child in children) {
             FWCNameTagView *childTag = [[[NSBundle mainBundle] loadNibNamed:@"FWCNameTagView" owner:self options:nil] lastObject];
-
+            
             childTag.code = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return code;})();"];
             childTag.user_prompt = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return user_prompt;})();"];
             childTag.logoText = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return $('div#logo_base64_container').text();})();"];
@@ -179,20 +188,26 @@ NSString *subdomain;
             }
             UIGraphicsBeginPDFPage();
             [childTag.layer renderInContext:pdfContext];
-
         }
 
-        FWCFamilyTagView *parentTag = [[[NSBundle mainBundle] loadNibNamed:@"FWCFamilyTagView" owner:self options:nil] lastObject];
-        parentTag.code = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return code;})();"];
-        parentTag.user_prompt = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return user_prompt;})();"];
-        [parentTag assign_substitutions:nametag_fields person:person];
-        parentTag.family_names_1.text = [childrenNames componentsJoinedByString:@"\n"];
-        parentTag.family_names_2.text = parentTag.family_names_1.text;
-        UIGraphicsBeginPDFPage();
-        [parentTag.layer renderInContext:pdfContext];
-
+        if([print_parent  isEqual: @"1"]){
+            FWCFamilyTagView *parentTag = [[[NSBundle mainBundle] loadNibNamed:@"FWCFamilyTagView" owner:self options:nil] lastObject];
+            parentTag.code = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return code;})();"];
+            parentTag.user_prompt = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return user_prompt;})();"];
+            [parentTag assign_substitutions:nametag_fields person:person];
+            parentTag.family_names_1.text = [childrenNames componentsJoinedByString:@"\n"];
+            parentTag.family_names_2.text = parentTag.family_names_1.text;
+            if (!init) {
+                UIGraphicsBeginPDFContextToData(pdfData, parentTag.bounds, nil);
+                pdfContext = UIGraphicsGetCurrentContext();
+                init = true;
+            }
+            UIGraphicsBeginPDFPage();
+            [parentTag.layer renderInContext:pdfContext];
+        }
+        
         UIGraphicsEndPDFContext();
-
+        
         [self printLabels:pdfData];
         
         // Cancel the event, so the webview doesn't load the url
