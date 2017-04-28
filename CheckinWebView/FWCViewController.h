@@ -22,4 +22,6 @@
 @property (strong, nonatomic) IBOutlet FWCParentTagView *parentLabel;
 @property (strong, nonatomic) IBOutlet FWCFamilyTagView *familyLabel;
 
+- (void)processLabels:(NSString *)printParent prompt:(NSString *)prompt;
+
 @end
