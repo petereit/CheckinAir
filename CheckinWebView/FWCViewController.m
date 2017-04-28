@@ -26,7 +26,13 @@ bool printingLabel = false;
 NSDictionary *nametag_fields;
 NSMutableDictionary *queryStringDictionary;
 
+
 NSString *subdomain;
+
+-(BOOL)prefersStatusBarHidden{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults valueForKey:@"SettingsShowStatusBar"];
+}
 
 - (void)viewDidLoad
 {
@@ -63,7 +69,8 @@ NSString *subdomain;
     UIPrintInfo *pi = [UIPrintInfo printInfo];
     pi.outputType = UIPrintInfoOutputGrayscale;
     pi.jobName = @"Label";
-    pi.orientation = UIPrintInfoOrientationPortrait;
+    pi.orientation = UIPrintInfoOrientationLandscape;
+    
     
     UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
     pic.delegate = self;
@@ -93,7 +100,6 @@ NSString *subdomain;
         }
     } else {
         [pic presentAnimated:YES completionHandler:^(UIPrintInteractionController *pic2, BOOL completed, NSError *error) {
-            // indicate done or error
         }];
     }
     
@@ -159,44 +165,105 @@ NSString *subdomain;
             nametag_fields = object;
         }
         
-        NSArray *children = [[queryStringDictionary objectForKey:@"person_id"] componentsSeparatedByString:@","];
-        NSMutableArray *childrenNames = [[NSMutableArray alloc] init];
-        NSDictionary *person;
-        
-        NSMutableData *pdfData = [NSMutableData data];
-        BOOL init = false;
-        
-        CGContextRef pdfContext = UIGraphicsGetCurrentContext();
-        
-        for (NSString *child in children) {
-            FWCNameTagView *childTag = [[[NSBundle mainBundle] loadNibNamed:@"FWCNameTagView" owner:self options:nil] lastObject];
-            
-            childTag.code = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return code;})();"];
-            childTag.user_prompt = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return user_prompt;})();"];
-            childTag.logoText = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return $('div#logo_base64_container').text();})();"];
-            childTag.instance_id = [queryStringDictionary objectForKey:@"instance_id"];
-            childTag.people_ids_json = [queryStringDictionary objectForKey:@"people_ids_json"];
-            [childTag create_tag:nametag_fields person_id:child];
-            [childrenNames addObject:childTag.child_name.text];
-            if (person == nil) {
-                person = childTag.person;
+        //Iterate through fields. If PROMPT is assigned, display UIAlertController
+        Boolean displayPrompt = false;
+        for(id field in nametag_fields){
+            if([[nametag_fields objectForKey:field]  isEqual: @"PROMPT"]){
+                displayPrompt = true;
+                break;
             }
+        }
+        if(displayPrompt){
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Info to Include:" message:NULL preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                textField.secureTextEntry = NO;
+            }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                                 handler:^(UIAlertAction * action) {[self processLabels:print_parent prompt:@"BLANK"];}];
+            UIAlertAction *userPrompt = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UITextField *prompt = alertController.textFields.firstObject;
+                if (![prompt.text isEqualToString:@""]) {
+                    
+                    [self processLabels:print_parent prompt:prompt.text];
+                }
+            }];
+            [alertController addAction:cancelAction];
+            [alertController addAction:userPrompt];
+            [self presentViewController:alertController animated:YES completion:nil];
+        } else {
+            [self processLabels:print_parent prompt:@"BLANK"];
+        }
+        
+        // Cancel the event, so the webview doesn't load the url
+        return NO;
+        
+    }
+    return YES;
+}
+
+- (void)processLabels:(NSString *)printParent prompt:(NSString *)prompt
+{
+
+    NSArray *children = [[queryStringDictionary objectForKey:@"person_id"] componentsSeparatedByString:@","];
+    NSMutableArray *childrenNames = [[NSMutableArray alloc] init];
+    NSDictionary *person;
+    
+    NSMutableData *pdfData = [NSMutableData data];
+    BOOL init = false;
+    
+    CGContextRef pdfContext = UIGraphicsGetCurrentContext();
+    
+    for (NSString *child in children) {
+        FWCNameTagView *childTag = [[[NSBundle mainBundle] loadNibNamed:@"FWCNameTagView" owner:self options:nil] lastObject];
+        
+        childTag.bounds = CGRectMake(0, 0, 3.75 * 216.0, 2.4375 * 216.0);
+        childTag.code = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return code;})();"];
+//            childTag.user_prompt = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return user_prompt;})();"];
+        childTag.user_prompt = prompt;
+        childTag.logoText = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return $('div#logo_base64_container').text();})();"];
+        childTag.instance_id = [queryStringDictionary objectForKey:@"instance_id"];
+        childTag.people_ids_json = [queryStringDictionary objectForKey:@"people_ids_json"];
+        [childTag create_tag:nametag_fields person_id:child];
+        [childrenNames addObject:childTag.child_name.text];
+        if (person == nil) {
+            person = childTag.person;
+        }
+        if (!init) {
+            UIGraphicsBeginPDFContextToData(pdfData, childTag.bounds, nil);
+            pdfContext = UIGraphicsGetCurrentContext();
+            init = true;
+        }
+        UIGraphicsBeginPDFPage();
+        [childTag.layer renderInContext:pdfContext];
+    }
+
+    if([printParent  isEqual: @"1"]){
+        if(children.count > 1){
+            FWCFamilyTagView *familyTag = [[[NSBundle mainBundle] loadNibNamed:@"FWCFamilyTagView" owner:self options:nil] lastObject];
+            
+            //familyTag.bounds = CGRectMake(0, 0, 4.0 * 216.0, 2.4375 * 216.0);
+            familyTag.bounds = CGRectMake(0, 0, 3.75 * 216.0, 2.4375 * 216.0);
+            familyTag.code = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return code;})();"];
+            familyTag.user_prompt = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return user_prompt;})();"];
+            [familyTag assign_substitutions:nametag_fields person:person];
+            familyTag.family_names_1.text = [childrenNames componentsJoinedByString:@"\n"];
+            familyTag.family_names_2.text = familyTag.family_names_1.text;
             if (!init) {
-                UIGraphicsBeginPDFContextToData(pdfData, childTag.bounds, nil);
+                UIGraphicsBeginPDFContextToData(pdfData, familyTag.bounds, nil);
                 pdfContext = UIGraphicsGetCurrentContext();
                 init = true;
             }
             UIGraphicsBeginPDFPage();
-            [childTag.layer renderInContext:pdfContext];
-        }
-
-        if([print_parent  isEqual: @"1"]){
-            FWCFamilyTagView *parentTag = [[[NSBundle mainBundle] loadNibNamed:@"FWCFamilyTagView" owner:self options:nil] lastObject];
+            [familyTag.layer renderInContext:pdfContext];
+        } else {
+            FWCParentTagView *parentTag = [[[NSBundle mainBundle] loadNibNamed:@"FWCParentTagView" owner:self options:nil] lastObject];
+            
+            parentTag.bounds = CGRectMake(0, 0, 3.75 * 216.0, 2.4375 * 216.0);
             parentTag.code = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return code;})();"];
             parentTag.user_prompt = [self.webView stringByEvaluatingJavaScriptFromString:@"(function() {return user_prompt;})();"];
             [parentTag assign_substitutions:nametag_fields person:person];
-            parentTag.family_names_1.text = [childrenNames componentsJoinedByString:@"\n"];
-            parentTag.family_names_2.text = parentTag.family_names_1.text;
+//                parentTag.child_names_1.text = [childrenNames componentsJoinedByString:@"\n"];
+//                parentTag.child_names_2.text = parentTag.child_names_1.text;
             if (!init) {
                 UIGraphicsBeginPDFContextToData(pdfData, parentTag.bounds, nil);
                 pdfContext = UIGraphicsGetCurrentContext();
@@ -205,16 +272,12 @@ NSString *subdomain;
             UIGraphicsBeginPDFPage();
             [parentTag.layer renderInContext:pdfContext];
         }
-        
-        UIGraphicsEndPDFContext();
-        
-        [self printLabels:pdfData];
-        
-        // Cancel the event, so the webview doesn't load the url
-        return NO;
-        
     }
-    return YES;
+
+    UIGraphicsEndPDFContext();
+    
+    [self printLabels:pdfData];
+    
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -238,17 +301,21 @@ NSString *subdomain;
     
     [self.webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');"
      "script.type = 'text/javascript';"
-     "script.text = \"function print_tag(person_id, instance_id, child_or_parent) { "
-     "if(!child_or_parent) { child_or_parent = 'both'; } "
-     "var people_ids_json = ''; "
+     "script.text = \"function print_tag(person_id, instance_id, child_or_parent, checkout) { "
+     "if(!child_or_parent) { child_or_parent = 'both'; }"
+     "var people_ids_json = '';"
      "if (person_id instanceof Array) {"
-     "    people_ids_json = JSON.stringify(person_id);"
-     "} else { "
-     "    people_ids_json = '';"
-     "} "
-     "window.location = 'breezeprint:print?person_id=' + person_id + '&instance_id=' + instance_id + '&people_ids_json=' + people_ids_json + '&child_or_parent=' + child_or_parent;"
+     "   people_ids_json = JSON.stringify(person_id);"
+     "   var parent_xml = family_label_xml;"
+     "} else {"
+     "   people_ids_json = '';"
+     "   var parent_xml = parent_label_xml;"
+     "}"
+     "update_link_container_style(person_id, 'in_override', checkout, '', true);"
+     "window.location = 'breezeprint:print?person_id=' + person_id + '&instance_id=' + instance_id + '&people_ids_json=' + people_ids_json + '&child_or_parent=' + child_or_parent + '&checkout=' + checkout;"
      "}\";"
      "document.getElementsByTagName('head')[0].appendChild(script);"];
+    
     [SVProgressHUD dismiss];
 }
 
@@ -260,7 +327,9 @@ NSString *subdomain;
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)pic
                                  choosePaper:(NSArray *)paperList {
     // custom method & properties...
-    CGSize customPaperSize = CGSizeMake(2.4375 * 72.0, 4.0 * 72.0);
+    
+    CGSize customPaperSize = CGSizeMake(4.0 * 72.0, 2.4375 * 72.0);
+
     //CGSize pageSize = [self pageSizeForDocumentType:self.document.type];
     return [UIPrintPaper bestPaperForPageSize:customPaperSize
                           withPapersFromArray:paperList];
