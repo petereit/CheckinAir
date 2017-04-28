@@ -12,15 +12,15 @@
 
 -(void) assign_substitutions:(NSDictionary *)nametag_fields person:(NSDictionary *)person{
     
-    //  The following code was ported from Breeze's assign_substitutions function in Checkin.js
-    //  See http://www.breezechms.com/js/checkin2.js
-
-    //  Objective-C can only switch on integers -- not strings, so I put all the fields
-    //  in an array and use their array position as the integer to switch on
+    // set name (not user-defined on layout template)
+//    @try {
+//        self.child_name.text = [NSString stringWithFormat:@"%@ %@", [person valueForKey:@"first_name"], [person valueForKey:@"last_name"]];
+//    }
+//    @catch (NSException *exception) {} @finally {}
+    
     NSArray *fields = [NSArray arrayWithObjects: @"0", @"CODE", @"CODE3", @"CHILDLIST", @"CHILD", @"PARENTMOBILES", @"PARENTS", @"CELL", @"TAG", @"PROMPT", @"DATE", @"TIME", @"DATETIME", nil];
     
     for (NSString *field in nametag_fields) {
-        //Pull index of fields array to use for switch statement
         NSUInteger index = [fields indexOfObject:[nametag_fields valueForKey:field]];
         switch (index) {
             case 0: //"0"
