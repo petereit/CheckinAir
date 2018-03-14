@@ -1,5 +1,9 @@
+![alt text](https://is3-ssl.mzstatic.com/image/thumb/Purple127/v4/90/be/f6/90bef6db-da99-467f-9668-b33fbf7e88e9/mzl.naooxlyk.png/230x0w.jpg "Checkin Air Logo")
+
 # CheckinAir
 Checkin Air allows you to use an iPad/iPhone and AirPrint wireless label printers to check in children in the Breeze Church Management System.
+
+[<img src="https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg-25178aeef6eb6b83b96f5f2d004eda3bffbb37122de64afbaef7107b384a4132.svg">](https://itunes.apple.com/us/app/checkin-air/id1088690601?mt=8)
 
 ## Important note!
 Before the CheckinAir app can work, you must first follow the instructions to configure your Brother wireless label printer, connecting it to the same wireless network as the iPad/iPhone you intend to use for checkin. Please test that your Brother printer is configured correctly:
