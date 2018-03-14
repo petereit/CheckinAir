@@ -20,7 +20,7 @@ This app was produced by an independent developer, Mark Petereit, as a labor of 
 
 For all support requests, please click the Issues tab above. Search the completed issues first, and if you do not see your issue listed, please open a new issue. I typically respond to new requests within 24-48 hours, and push out fixes/updates to the Apple App Store as quickly as I can identify and fix the issues.
 
-Please know that this project is not much more than a hobby for me. I have a day job, I teach Wednesday night lessons at church and I am a lead singer on my worship team. I'm also a husband, a father of three children (one entering college) and a caretaker of the five acres of rural South Carolina that I call home. Life happens -- pretty regularly -- and I do manager to stay fairly busy just trying to keep up with all of that.
+Please know that this project is not much more than a hobby for me. I have a day job, I teach Wednesday night lessons at church and I am a lead singer on my worship team. I'm also a husband, a father of three children (one entering college) and a caretaker of the five acres of rural South Carolina that I call home. Life happens &mdash; pretty regularly &mdash; and I do manager to stay fairly busy just trying to keep up with all of that.
 
 So when it comes to fixes/updates, I do appreciate a little patience and a LOT of grace! ;-) 
 
