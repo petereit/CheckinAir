@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 //#import "FWCNameTagView.h"
 //#import "FWCParentTagView.h"
+#import <Photos/Photos.h>
 
 @interface FWCViewController ()
 
@@ -45,6 +46,64 @@ NSString *subdomain;
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     queryStringDictionary = [[NSMutableDictionary alloc] init];
 
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    switch (authStatus) {
+        case AVAuthorizationStatusAuthorized: { // camera authorized
+            // do camera intensive stuff
+        }
+            break;
+        case AVAuthorizationStatusNotDetermined: { // request authorization
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if(granted) {
+                        // do camera intensive stuff
+                    } else {
+                        //
+                    }
+                });
+            }];
+        }
+            break;
+        case AVAuthorizationStatusRestricted:
+        case AVAuthorizationStatusDenied: {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //
+            });
+        }
+            break;
+        default:
+            break;
+    }
+    
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    
+    if (status == PHAuthorizationStatusAuthorized) {
+        // Access has been granted.
+    }
+    
+    else if (status == PHAuthorizationStatusDenied) {
+        // Access has been denied.
+    }
+    
+    else if (status == PHAuthorizationStatusNotDetermined) {
+        
+        // Access has not been determined.
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            
+            if (status == PHAuthorizationStatusAuthorized) {
+                // Access has been granted.
+            }
+            
+            else {
+                // Access has been denied.
+            }
+        }];
+    }
+    
+    else if (status == PHAuthorizationStatusRestricted) {
+        // Restricted access - normally won't happen.
+    }
+    
     [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeBlack];
 
     [self.webView loadRequest:requestObj];
@@ -302,20 +361,21 @@ NSString *subdomain;
     [self.webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');"
      "script.type = 'text/javascript';"
      "script.text = \"function print_tag(person_id, instance_id, child_or_parent, checkout) { "
-     "if(!child_or_parent) { child_or_parent = 'both'; }"
-     "var people_ids_json = '';"
-     "if (person_id instanceof Array) {"
-     "   people_ids_json = JSON.stringify(person_id);"
-     "   var parent_xml = family_label_xml;"
-     "} else {"
-     "   people_ids_json = '';"
-     "   var parent_xml = parent_label_xml;"
-     "}"
-     "update_link_container_style(person_id, 'in_override', checkout, '', true);"
+     "if($('input#print').val() != '1') { return false; } "
+     "if(!child_or_parent) { child_or_parent['both'] = 1; } "
+     "var people_ids_json = ''; "
+     "if (person_id instanceof Array) { "
+     "    people_ids_json = JSON.stringify(person_id); "
+     "    var parent_xml = family_label_xml; "
+     "} else { "
+     "    people_ids_json = ''; "
+     "    var parent_xml = parent_label_xml; "
+     "} "
+     "update_link_container_style(person_id, 'in_override', checkout, '', true); "
      "window.location = 'breezeprint:print?person_id=' + person_id + '&instance_id=' + instance_id + '&people_ids_json=' + people_ids_json + '&child_or_parent=' + child_or_parent + '&checkout=' + checkout;"
      "}\";"
      "document.getElementsByTagName('head')[0].appendChild(script);"];
-    
+
     [SVProgressHUD dismiss];
 }
 
