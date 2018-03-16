@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6914A0721CA591D900D47276 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6914A0711CA591D900D47276 /* Launch Screen.storyboard */; };
 		6916DC0E1979802F00393EE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6916DC0D1979802F00393EE3 /* Foundation.framework */; };
 		6916DC101979802F00393EE3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6916DC0F1979802F00393EE3 /* CoreGraphics.framework */; };
 		6916DC121979802F00393EE3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6916DC111979802F00393EE3 /* UIKit.framework */; };
 		692A96871C86780B0066183F /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 692A96431C86780B0066183F /* Main_iPad.storyboard */; };
 		692A96881C86780B0066183F /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 692A96451C86780B0066183F /* Main_iPhone.storyboard */; };
 		692A96891C86780B0066183F /* checkin2.js in Resources */ = {isa = PBXBuildFile; fileRef = 692A96471C86780B0066183F /* checkin2.js */; };
-		692A968A1C86780B0066183F /* CheckinAir-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 692A96481C86780B0066183F /* CheckinAir-Info.plist */; };
 		692A968B1C86780B0066183F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 692A964A1C86780B0066183F /* InfoPlist.strings */; };
 		692A968C1C86780B0066183F /* FWCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A964D1C86780B0066183F /* FWCAppDelegate.m */; };
 		692A968D1C86780B0066183F /* FWCDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A964F1C86780B0066183F /* FWCDonationViewController.m */; };
@@ -58,6 +58,11 @@
 		692A96B41C86780B0066183F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 692A96801C86780B0066183F /* Settings.bundle */; };
 		692A96B51C86780B0066183F /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 692A96841C86780B0066183F /* SVProgressHUD.bundle */; };
 		692A96B61C86780B0066183F /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A96861C86780B0066183F /* SVProgressHUD.m */; };
+		69555EA91E61DFD3001A535F /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 69555EA81E61DFD3001A535F /* UIKitCategories.m */; };
+		69622FA51C9C93BB00D49EB7 /* 750x1334.png in Resources */ = {isa = PBXBuildFile; fileRef = 69622FA41C9C93BB00D49EB7 /* 750x1334.png */; };
+		69622FA71C9C94C000D49EB7 /* 2208x1242.png in Resources */ = {isa = PBXBuildFile; fileRef = 69622FA61C9C94C000D49EB7 /* 2208x1242.png */; };
+		69622FA91C9DA32300D49EB7 /* 1242x2208.png in Resources */ = {isa = PBXBuildFile; fileRef = 69622FA81C9DA32300D49EB7 /* 1242x2208.png */; };
+		69622FAB1C9DBC7C00D49EB7 /* Checkin Air Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 69622FAA1C9DBC7C00D49EB7 /* Checkin Air Logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +78,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6914A0711CA591D900D47276 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		6916DC0A1979802F00393EE3 /* CheckinAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckinAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6916DC0D1979802F00393EE3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6916DC0F1979802F00393EE3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -138,6 +144,12 @@
 		692A96841C86780B0066183F /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		692A96851C86780B0066183F /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		692A96861C86780B0066183F /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		69555EA71E61DFD3001A535F /* UIKitCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIKitCategories.h; sourceTree = "<group>"; };
+		69555EA81E61DFD3001A535F /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIKitCategories.m; sourceTree = "<group>"; };
+		69622FA41C9C93BB00D49EB7 /* 750x1334.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 750x1334.png; sourceTree = "<group>"; };
+		69622FA61C9C94C000D49EB7 /* 2208x1242.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2208x1242.png; sourceTree = "<group>"; };
+		69622FA81C9DA32300D49EB7 /* 1242x2208.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1242x2208.png; sourceTree = "<group>"; };
+		69622FAA1C9DBC7C00D49EB7 /* Checkin Air Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkin Air Logo.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +169,7 @@
 		6916DC011979802F00393EE3 = {
 			isa = PBXGroup;
 			children = (
+				6914A0711CA591D900D47276 /* Launch Screen.storyboard */,
 				692A96BC1C86781A0066183F /* SVProgressHUD */,
 				692A96421C86780B0066183F /* CheckinWebView */,
 				6916DC0C1979802F00393EE3 /* Frameworks */,
@@ -213,6 +226,8 @@
 				692A965E1C86780B0066183F /* FWCSubdomainViewController.m */,
 				692A965F1C86780B0066183F /* FWCViewController.h */,
 				692A96601C86780B0066183F /* FWCViewController.m */,
+				69555EA71E61DFD3001A535F /* UIKitCategories.h */,
+				69555EA81E61DFD3001A535F /* UIKitCategories.m */,
 				692A96611C86780B0066183F /* Icons */,
 				692A967E1C86780B0066183F /* Images.xcassets */,
 				692A967F1C86780B0066183F /* main.m */,
@@ -225,6 +240,10 @@
 		692A96611C86780B0066183F /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				69622FAA1C9DBC7C00D49EB7 /* Checkin Air Logo.png */,
+				69622FA81C9DA32300D49EB7 /* 1242x2208.png */,
+				69622FA61C9C94C000D49EB7 /* 2208x1242.png */,
+				69622FA41C9C93BB00D49EB7 /* 750x1334.png */,
 				692A96621C86780B0066183F /* 1024x1024.png */,
 				692A96631C86780B0066183F /* 120x120.png */,
 				692A96641C86780B0066183F /* 152x152.png */,
@@ -325,11 +344,12 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = FWC;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Family Worship Center";
 				TargetAttributes = {
 					6916DC091979802F00393EE3 = {
 						DevelopmentTeam = PGJ4NVH4M2;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -361,12 +381,16 @@
 				692A969C1C86780B0066183F /* 40x40.png in Resources */,
 				692A96AA1C86780B0066183F /* credit_48px.png in Resources */,
 				692A969D1C86780B0066183F /* 44x44.png in Resources */,
-				692A968A1C86780B0066183F /* CheckinAir-Info.plist in Resources */,
+				69622FA71C9C94C000D49EB7 /* 2208x1242.png in Resources */,
+				6914A0721CA591D900D47276 /* Launch Screen.storyboard in Resources */,
+				69622FAB1C9DBC7C00D49EB7 /* Checkin Air Logo.png in Resources */,
 				692A969A1C86780B0066183F /* 152x152.png in Resources */,
 				692A96AF1C86780B0066183F /* Launch Image iPhone.xcf in Resources */,
 				692A96B51C86780B0066183F /* SVProgressHUD.bundle in Resources */,
 				692A96A51C86780B0066183F /* Brother QL-710W.jpg in Resources */,
+				69622FA51C9C93BB00D49EB7 /* 750x1334.png in Resources */,
 				692A96991C86780B0066183F /* 120x120.png in Resources */,
+				69622FA91C9DA32300D49EB7 /* 1242x2208.png in Resources */,
 				692A96A61C86780B0066183F /* Brother QL-710W.png in Resources */,
 				692A969F1C86780B0066183F /* 512x512.png in Resources */,
 				692A96901C86780B0066183F /* FWCFamilyTagView.xib in Resources */,
@@ -411,6 +435,7 @@
 				692A96921C86780B0066183F /* FWCNameTagView.m in Sources */,
 				692A96941C86780B0066183F /* FWCParentTagView.m in Sources */,
 				692A968F1C86780B0066183F /* FWCFamilyTagView.m in Sources */,
+				69555EA91E61DFD3001A535F /* UIKitCategories.m in Sources */,
 				692A968D1C86780B0066183F /* FWCDonationViewController.m in Sources */,
 				692A96B61C86780B0066183F /* SVProgressHUD.m in Sources */,
 				692A96971C86780B0066183F /* FWCViewController.m in Sources */,
@@ -460,15 +485,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -501,14 +531,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -526,9 +561,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = PGJ4NVH4M2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -541,7 +577,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.FWCChurches.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = CheckinAir;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 2;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -550,9 +587,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Family Worship Center (PGJ4NVH4M2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = PGJ4NVH4M2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -565,7 +603,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.FWCChurches.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = CheckinAir;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 2;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
