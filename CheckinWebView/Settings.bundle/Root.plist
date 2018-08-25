@@ -20,6 +20,16 @@
 			<key>Key</key>
 			<string>SettingsSubdomain</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Status Bar</string>
+			<key>Key</key>
+			<string>SettingsShowStatusBar</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
 	</array>
 	<key>Title</key>
 	<string>Checkin Air</string>

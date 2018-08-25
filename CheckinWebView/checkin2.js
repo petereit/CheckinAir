@@ -13,6 +13,9 @@ var nametag_fields = '';
 var pathArray = window.location.pathname.split( '/' );
 var instance_id = pathArray[3];
 var code = '';
+var used_codes = [];
+var code_three = '';
+var used_codes_three = [];
 var user_prompt = 'BLANK';
 var by_family = false;
 var disable_thumbnail = false;
@@ -20,6 +23,8 @@ var load_checkin_people_from_instance_id_request;
 var clear_screen_timer;
 var global_checked_in_num = 0;
 var global_anonymous_num = 0;
+var family_people_ids_to_print = [];
+var field_ids_json = [];
 
 function frameworkInitShim() {
     
@@ -95,15 +100,22 @@ function startupCode() {
            }
            });
     
-    // get nametag fields
+    // get nametag fields (if this fails it results in weird placeholder labels coming through)
     $.ajax({
            url: '../../../../ajax/nametag_fields_by_instance_id',
            dataType: 'json',
+           async: false, // force it to finish before moving on
            type: 'POST',
            data: {
            instance_id: instance_id
            },
-           success: function(fields){ nametag_fields = fields; }
+           success: function(fields){
+           nametag_fields = fields;
+           field_ids_json = JSON.stringify(fields.field_ids);
+           },
+           error: function (request, status, error) {
+           alert('Warning: The name tag template failed to load successfully.  Please refresh this page to try again.');
+           }
            });
     
     $('ul#alphabet_filter').scrollToFixed();
@@ -152,6 +164,13 @@ function startupCode() {
                               
                               var instance_id_to_pass = instance_id; // instance_id disappears in callback
                               
+                              // if checking in and a printed event, apply pending status to all checked in family members
+                              if(selected_action == 'in' && $('input#print').val() == '1') {
+                              $.each($(selected_people_ids), function(index, person_id) {
+                                     update_link_container_style(person_id, 'pending', selected_checkout, '', true);
+                                     });
+                              }
+                              
                               $.ajax({
                                      url: '../../../../ajax/check_people_ids_into_out_of_instance_id',
                                      type: 'POST',
@@ -170,13 +189,17 @@ function startupCode() {
                                      $.each($(selected_people_ids), function(index, person_id) {
                                             
                                             //var link_container = $('table#people_list').find('a[data-person_id="'+person_id+'"]');
+                                            
+                                            if(selected_action != 'in' || $('input#print').val() != '1') {
                                             update_link_container_style(person_id, selected_action, selected_checkout, datetime, true);
+                                            }
+                                            
                                             update_quantity();
-                                            print_tag(person_id, instance_id_to_pass, 'child'); // print nametag for child
+                                            print_tag(person_id, instance_id_to_pass, 'child', selected_checkout); // print nametag for child
                                             
                                             });
                                      
-                                     print_tag(selected_people_ids, instance_id_to_pass, 'parent'); // print nametag for parent
+                                     print_tag(selected_people_ids, instance_id_to_pass, 'parent', selected_checkout); // print nametag for parent
                                      
                                      if(mode == 'search') {
                                      clear_screen_timer = setTimeout(function() { $('input#filter_people').val(''); $('input#filter_people').focus(); }, 5000);
@@ -302,6 +325,15 @@ function startupCode() {
                               var family_id = $(this).closest('tr').data('family_id');
                               var family_members = 0;
                               
+                              // prevent double click if already processing
+                              if($('input#print').val() == '1') { // if printed event
+                              var is_spinner = people_table.$('tr').find('a[data-person_id="'+person_id+'"]').find('i.icon-spinner').length;
+                              
+                              // and if icon is a spinner, then stop
+                              if(is_spinner) { return false; }
+                              
+                              }
+                              
                               // get number of family members
                               family_members = people_table.$('tr[data-family_id="'+family_id+'"]').length;
                               
@@ -365,76 +397,31 @@ function startupCode() {
                               return false;
                               }
                               
+                              // if removing, confirm want to remove
                               if(action == 'remove') {
                               var r=confirm("Are you sure you want to remove this attendance record?");
                               if (r!=true) { return false; }
                               }
                               
+                              // find out if event is checkout event
                               var checkout = 0;
                               if($(this).hasClass('checkout') == true) {
                               checkout = 1;
                               }
                               
-                              if(action == 'in') {
+                              // if checking in AND not family (as that would have stopped previously) AND a printed event, set icon to pending
+                              if(action == 'in' && $('input#print').val() == '1') {
+                              update_link_container_style(person_id, 'pending', checkout, '', true);
                               
-                              if(checkout) {
-                              
-                              $(link_container).removeClass('out');
-                              $(link_container).addClass('in');
-                              $(link_container).data('action', 'out');
-                              $(link_container).find('.icon-play').addClass('icon-stop');
-                              $(link_container).find('.icon-play').removeClass('icon-play');
-                              $(link_container).closest('div').find('.check_in_time').text('...');
-                              $(link_container).closest('div').find('.check_in_time').show();
-                              
+                              // otherwise apply normal styling
                               } else {
-                              
-                              $(link_container).removeClass('out');
-                              $(link_container).addClass('in');
-                              $(link_container).data('action', 'out');
-                              
-                              }
-                              
-                              }
-                              
-                              if(action == 'out') {
-                              
-                              if(checkout) {
-                              
-                              $(link_container).removeClass('in');
-                              $(link_container).addClass('remove');
-                              $(link_container).data('action', 'remove');
-                              $(link_container).find('.icon-stop').addClass('icon-remove');
-                              $(link_container).find('.icon-stop').removeClass('icon-stop');
-                              $(link_container).closest('div').find('.check_out_time').text('...');
-                              $(link_container).closest('div').find('.check_out_time').show();
-                              
-                              } else {
-                              
-                              $(link_container).removeClass('in');
-                              $(link_container).addClass('out');
-                              $(link_container).data('action', 'in');
-                              
-                              }
-                              
-                              }
-                              
-                              if(action == 'remove') {
-                              
-                              $(link_container).removeClass('remove');
-                              $(link_container).addClass('out');
-                              $(link_container).data('action', 'in');
-                              $(link_container).find('.icon-remove').addClass('icon-play');
-                              $(link_container).find('.icon-remove').removeClass('icon-remove');
-                              $(link_container).closest('div').find('.check_in_time').hide();
-                              $(link_container).closest('div').find('.check_out_time').hide();
-                              
+                              update_link_container_style(person_id, action, checkout, '', true);
                               }
                               
                               // print
                               if(action == 'in') {
                               reset_printer_variables();
-                              print_tag(person_id, instance_id, 'both');
+                              print_tag(person_id, instance_id, 'both', checkout);
                               }
                               
                               $.ajax({
@@ -507,8 +494,10 @@ function precheck_selected_family_member(person_id, checkout) {
                 $(selected_family_link_container).removeClass('out');
                 $(selected_family_link_container).addClass('in');
                 $(selected_family_link_container).data('action', 'out');
-                $(selected_family_link_container).find('i').addClass('icon-stop');
-                $(selected_family_link_container).find('i').removeClass('icon-play');
+                
+                $(selected_family_link_container).find('i.icon-play').addClass('icon-stop');
+                $(selected_family_link_container).find('i.icon-play').removeClass('icon-play');
+                
                 //$(link_container).closest('div').find('.check_in_time').text('...');
                 //$(link_container).closest('div').find('.check_in_time').show();
                 
@@ -524,7 +513,7 @@ function precheck_selected_family_member(person_id, checkout) {
     
 }
 
-function print_tag(person_id, instance_id, child_or_parent) {
+function print_tag(person_id, instance_id, child_or_parent, checkout) {
     
     if($('input#print').val() != '1') { return false; } // if not set to print, return false
     
@@ -547,9 +536,13 @@ function print_tag(person_id, instance_id, child_or_parent) {
            person_id: person_id,
            instance_id: instance_id,
            fetch_instance: '1',
-           people_ids_json: people_ids_json
+           people_ids_json: people_ids_json,
+           field_ids_json: field_ids_json
            },
            success: function(person){
+           
+           // set the checkbox as clicked
+           update_link_container_style(person_id, 'in_override', checkout, '', true);
            
            // create child label
            if(child_or_parent == 'both' || child_or_parent == 'child') {
@@ -777,6 +770,7 @@ function list_local_printers() {
     
 }
 
+var visible_add_person_field_ids = []; // add person fields that can be referenced elsewhere
 
 function load_instance_by_instance_id(instance_id, oid) {
     
@@ -837,6 +831,7 @@ function load_instance_by_instance_id(instance_id, oid) {
                   $('div.checkin_add_person_field_container').hide();
                   $.each(selected_fields, function(key, value) {
                          $('div[data-field_id="'+value+'"]').show();
+                         visible_add_person_field_ids.push(value);
                          });
                   }
                   }
@@ -870,7 +865,7 @@ function load_instance_by_instance_id(instance_id, oid) {
                   $('div#add_person_tag_container').show();
                   $('button#add_new_person').data('include_tags', '1');
                   } else {
-                  $('div#add_person_tag_container').hide();
+                  $('div#add_person_tag_container').remove(); // remove so it can't be used even when show() command tries to hit it
                   $('button#add_new_person').data('include_tags', '0');
                   }
                   
@@ -996,7 +991,7 @@ function load_instance_by_instance_id(instance_id, oid) {
                                                                                                                                  }
                                                                                                                                  });
                                                                            
-                                                                           }, 700);
+                                                                           }, 1700);
                                     
                                     
                                     
@@ -1040,6 +1035,109 @@ function load_instance_by_instance_id(instance_id, oid) {
     
 }
 
+function change_icon(element, icon) {
+    
+    setTimeout(function() { // prioritizes this change which helps prevent double check in (see http://stackoverflow.com/questions/9083594/call-settimeout-without-delay)
+               
+               // if not updating to spinner status and out_override is applied, don't change icon (this prevents Pusher from prematurely updating icon before "ajax/get_check_in_person_from_id" returns
+               if(icon != 'icon-spinner' && $(element).closest('a').hasClass('out_override')) { return false; } // if out_override has control, don't change status
+               
+               // remove all icons
+               $(element).removeClass('icon-play');
+               $(element).removeClass('icon-stop');
+               $(element).removeClass('icon-remove');
+               $(element).removeClass('icon-ok');
+               $(element).removeClass('icon-spinner');
+               $(element).removeClass('icon-spin');
+               
+               // add in passed icon
+               $(element).addClass(icon);
+               
+               // if spinner icon, set in motion
+               if(icon == 'icon-spinner') {
+               $(element).addClass('icon-spin');
+               } else {
+               $(element).css('transform', 'none'); // fix perpetual scroll issue in IE/Edge (http://stackoverflow.com/questions/32265720/spinning-icons-strange-behavior-on-ie)
+               }
+               
+               }, 0);
+    
+}
+
+function update_checkin_checkout_time(element, action, datetime) {
+    
+    switch(action) {
+            
+        case 'in':
+            if(datetime) {
+                $(element).closest('div').find('.check_in_time').text(datetime);
+                $(element).closest('div').find('.check_in_time').show();
+            }
+            break;
+            
+        case 'remove':
+            $(element).closest('div').find('.check_in_time').hide();
+            $(element).closest('div').find('.check_out_time').hide();
+            break;
+            
+        case 'out':
+            if(datetime) {
+                $(element).closest('div').find('.check_out_time').text(datetime);
+                $(element).closest('div').find('.check_out_time').show();
+                
+                // if no previously established check in time
+                if(!$(element).closest('div').find('.check_in_time').is(":visible")) {
+                    $(element).closest('div').find('.check_in_time').text(datetime);
+                    $(element).closest('div').find('.check_in_time').show();
+                }
+            }
+            break;
+            
+    }
+    
+}
+
+function change_checkbox_status(element, status) {
+    
+    switch(status) {
+            
+        case 'remove':
+            
+            $(element).removeClass('in');
+            $(element).removeClass('out');
+            $(element).addClass('remove');
+            $(element).data('action', 'remove');
+            
+            break;
+            
+        case 'out':
+            
+            $(element).removeClass('remove');
+            $(element).removeClass('in');
+            $(element).addClass('out');
+            $(element).data('action', 'in');
+            
+            break;
+            
+        case 'in':
+            
+            $(element).removeClass('out');
+            $(element).removeClass('remove');
+            $(element).addClass('in');
+            $(element).data('action', 'out');
+            
+            break;
+            
+        case 'pending':
+            $(element).removeClass('in');
+            $(element).addClass('out');
+            $(element).addClass('out_override'); // the out_override class prevents the icon from being updated until in_override is called (which allows us to ignore Pusher's confirmation and instead wait for "ajax/get_check_in_person_from_id" to return)
+            break;
+            
+    }
+    
+}
+
 function update_people_list(result, hide_alphabet, table_id_to_populate) {
     
     var people_in_list = countProperties(result);
@@ -1079,8 +1177,8 @@ function update_people_list(result, hide_alphabet, table_id_to_populate) {
            // set profile picture into correct variable
            if(this.profile_picture.thumb_path) { this.profile_picture = this.profile_picture.thumb_path; }
            
-           if((this.last_name.charAt(0) != new_letter) && (this.last_name.charAt(0) != ignore_leter) && /^[a-zA-Z]$/.test(this.last_name.charAt(0))) {
-           new_letter = this.last_name.charAt(0);
+           if((this.last_name.charAt(0).toUpperCase() != new_letter) && (this.last_name.charAt(0).toUpperCase() != ignore_leter) && /^[a-zA-Z]$/.test(this.last_name.charAt(0).toUpperCase())) {
+           new_letter = this.last_name.charAt(0).toUpperCase();
            letter_index++;
            ignore_leter = new_letter;
            if($.trim(new_letter)) { /* require there to be a letter */
@@ -1121,14 +1219,14 @@ function update_people_list(result, hide_alphabet, table_id_to_populate) {
            if(this.checked_in) {
            
            if(this.check_out_datetime) {
-           tr += '<a href="#" class="checkin checkout remove" data-action="remove" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-remove icon-light"></i></span></a>';
+           tr += '<a href="#" class="checkin checkout remove" data-action="remove" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="front_icon icon-remove icon-light"></i></span></a>';
            } else {
-           tr += '<a href="#" class="checkin checkout in" data-action="out" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-stop icon-light"></i></span></a>';
+           tr += '<a href="#" class="checkin checkout in" data-action="out" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="front_icon icon-stop icon-light"></i></span></a>';
            }
            
            }
            
-           if(!this.checked_in) { tr += '<a href="#" class="checkin checkout out" data-action="in" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-play icon-light"></i></span></a>'; }
+           if(!this.checked_in) { tr += '<a href="#" class="checkin checkout out" data-action="in" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="front_icon icon-play icon-light"></i></span></a>'; }
            
            tr += '</div></div></td>';
            tr += '<td class="hide">'+this.last_name+', '+this.first_name+'</td>';
@@ -1145,8 +1243,8 @@ function update_people_list(result, hide_alphabet, table_id_to_populate) {
            if(new_letter) { tr += '<a id="'+new_letter+'" class="anchor"></a>'; }
            tr += '<div class="pull-left"><label class="control-label check_in_name" for="inputEmail"><img src="../../../../../../../../../'+this.profile_picture+'" class="profile">'+this.last_name+', '+this.first_name+'</label></div><div class="pull-right check_container">';
            
-           if(this.checked_in) { tr += '<a href="#" class="checkin in" data-action="out" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-ok icon-light"></i></span></a>'; }
-           if(!this.checked_in) { tr += '<a href="#" class="checkin out" data-action="in" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="icon-ok icon-light"></i></span></a>'; }
+           if(this.checked_in) { tr += '<a href="#" class="checkin in" data-action="out" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="front_icon icon-ok icon-light"></i></span></a>'; }
+           if(!this.checked_in) { tr += '<a href="#" class="checkin out" data-action="in" data-person_id="'+this.id+'" data-instance_id="'+instance_id+'"><span class="icon-stack"><i class="icon-sign-blank icon-stack-base"></i><i class="front_icon icon-ok icon-light"></i></span></a>'; }
            
            tr += '</td><td class="hide">'+this.last_name+', '+this.first_name+'</td>';
            tr += '</tr>';
@@ -1250,6 +1348,13 @@ function update_people_list(result, hide_alphabet, table_id_to_populate) {
 
 function update_quantity() {
     
+    // determine if tags are being filtered (if they are, do not include anonymous in count)
+    try {
+        var filtered_tags = $("form#filter").find('input:checkbox:checked').length;
+    } catch(err) {
+        var filtered_tags = 0;
+    }
+    
     // if in search mode or if no one is on the list (undefined people table), get number via ajax
     if(mode == 'search' || typeof people_table == 'undefined') {
         
@@ -1272,6 +1377,9 @@ function update_quantity() {
                
                // total
                var total_quantity = Number(anonymous) + Number(checked_in);
+               
+               // if filtering by tag, do not include anonymous in count
+               if(filtered_tags) { total_quantity = Number(checked_in); }
                
                // output total
                $('span#event_quantity').text(' ('+total_quantity+')');
@@ -1297,6 +1405,9 @@ function update_quantity() {
         
         // total
         var total_quantity = Number(anonymous) + Number(checked_in);
+        
+        // if filtering by tag, do not include anonymous in count
+        if(filtered_tags) { total_quantity = Number(checked_in); }
         
         // output total
         $('span#event_quantity').text(' ('+total_quantity+')');
@@ -1374,13 +1485,34 @@ function assign_substitutions(label, person) {
            try { label.setObjectText(placeholder, ''); } catch(err) { }
            break;
            
+           case "BIRTHDATE":
+           
+           try { 
+           
+           if(person.details.birthdate) {
+           
+           var birthdate_object = new Date(person.details.birthdate);
+           var timezone_offset = birthdate_object.getTimezoneOffset();
+           var birthdate_object_utc = new Date(birthdate_object.getTime() + timezone_offset*60000);
+           var birthdate_formatted = birthdate_object_utc.format("m/d/yy");   
+           
+           label.setObjectText(placeholder, birthdate_formatted);
+           
+           } else {
+           label.setObjectText(placeholder, '');
+           }
+           
+           } catch(err) { }
+           
+           break;
+           
            case "CODE":
            try { label.setObjectText(placeholder, code); } catch(err) { }
            break;
            
            case "CODE3":
            try { 
-           var code_3 = code.substring(1);
+           var code_3 = code_three;
            if(code_3 == '666') { code_3 = '2' + Math.floor(Math.random() * 90 + 10); } // don't allow 666
            label.setObjectText(placeholder, code_3);
            } catch(err) { }
@@ -1419,6 +1551,7 @@ function assign_substitutions(label, person) {
            
            case "PARENTS":
            try { 
+           if(person.details.parents) { person.parents = person.details.parents; } // if family tag and it doesn't yet exist, pull it from details
            label.setObjectText(placeholder, person.parents);
            } catch(err) { }
            break;
@@ -1475,78 +1608,78 @@ function assign_substitutions(label, person) {
            
            default:
            try {
-                // image
-                if(placeholder == 'child_image') {
+           // image
+           if(placeholder == 'child_image') {
            
-                    if(field == 'profile') {
-                        try {
-                            var picture_path = person.path;
-                            var subdomain = window.location.hostname.match(/^.*?-?(\w*)\./)[1];
-                            var full_picture_path = 'https://' + subdomain + '.breezechms.com/' + picture_path;
+           if(field == 'profile') {
+           try {
+           var picture_path = person.path;
+           var subdomain = window.location.hostname.match(/^.*?-?(\w*)\./)[1];
+           var full_picture_path = 'https://' + subdomain + '.breezechms.com/' + picture_path;
            
-                            var picture = person.encoded_image;
+           var picture = person.encoded_image;
            
-                            label.setObjectText(placeholder, picture);
-                        } catch(err) { }
-                    } else {
+           label.setObjectText(placeholder, picture);
+           } catch(err) { }
+           } else {
            
-                       // images causing errors
-                       // set logo
-                       try { 
-                       
-                           // if picture is present
-                           if(field) {
-                           
-                               // get picture from stored container
-                               var picture = $('div#logo_base64_container').text();
-                               
-                               // if not found in stored container (first time through)
-                               if(!picture) {
-                               
-                                   // convert picture to base64 with PHP
-                                   $.ajax({
-                                          type: "POST",
-                                          url: "../../../../../../../../ajax/convert_image_to_base64",
-                                          async: false,
-                                          data: {
-                                          url: field
-                                          },
-                                          success: function(picture_encoded) {
-                                          picture = picture_encoded;
-                                          
-                                          // store to invisible container so doesn't need to be fetched via ajax each time
-                                          if(picture) { $('div#logo_base64_container').text(picture); }
-                                          
-                                          }
-                                          });
-                                   }
-                                   
-                                   // if picture successfully encoded
-                                   if(picture) { label.setObjectText(placeholder, picture); }
+           // images causing errors
+           // set logo
+           try { 
            
-                               }
+           // if picture is present
+           if(field) {
            
-                       } catch(err) { }
-                   }
+           // get picture from stored container
+           var picture = $('div#logo_base64_container').text();
            
-               } else {
+           // if not found in stored container (first time through)
+           if(!picture) {
            
-                   try {
-                       var value = '';
-                       
-                       // if in quotes, take actual value
-                       if(field.charAt(0) == '"') { 
-                           value = field.substring(1, field.length-1);
-                           
-                       //otherwise assume it's a field id
-                       } else {
-                           value = person.all[field];
-                       }
+           // convert picture to base64 with PHP
+           $.ajax({
+                  type: "POST",
+                  url: "../../../../../../../../ajax/convert_image_to_base64",
+                  async: false,
+                  data: {
+                  url: field
+                  },
+                  success: function(picture_encoded) {
+                  picture = picture_encoded;
+                  
+                  // store to invisible container so doesn't need to be fetched via ajax each time
+                  if(picture) { $('div#logo_base64_container').text(picture); }
+                  
+                  }
+                  });
+           }
            
-                       label.setObjectText(placeholder, value);
-                   } catch(err) { }
+           // if picture successfully encoded
+           if(picture) { label.setObjectText(placeholder, picture); }
            
-               }
+           }
+           
+           } catch(err) { }
+           }
+           
+           } else {
+           
+           try {
+           var value = '';
+           
+           // if in quotes, take actual value
+           if(field.charAt(0) == '"') { 
+           value = field.substring(1, field.length-1); 
+           
+           //otherwise assume it's a field id
+           } else {
+           value = person.all[field];
+           }
+           
+           label.setObjectText(placeholder, value); 
+           } catch(err) { }
+           
+           }
            } catch(err) { }
            break;
            
@@ -1567,104 +1700,98 @@ function update_link_container_style(person_id, action, checkout, datetime, main
         var link_container = person_id;
     }
     
-    
-    // OUT
-    if(action == 'out') {
-        
-        if(checkout && checkout != '0') {
+    switch(action) {
             
-            link_container.removeClass('in');
-            link_container.removeClass('out');
-            link_container.addClass('remove');
-            link_container.data('action', 'remove');
-            link_container.find('i').removeClass('icon-stop');
-            link_container.find('i').removeClass('icon-play');
-            link_container.find('i').addClass('icon-remove');
-            if(datetime) {
-                link_container.closest('div').find('.check_out_time').text(datetime);
-                link_container.closest('div').find('.check_out_time').show();
+        case 'out':
+            
+            if(checkout && checkout != '0') {
                 
-                // if no previously established check in time
-                if(!link_container.closest('div').find('.check_in_time').is(":visible")) {
-                    link_container.closest('div').find('.check_in_time').text(datetime);
-                    link_container.closest('div').find('.check_in_time').show();
-                }                
+                change_checkbox_status(link_container, 'remove');
+                change_icon($(link_container).find('.front_icon'), 'icon-remove');
+                update_checkin_checkout_time(link_container, action, datetime);
+                
+            } else {
+                
+                change_checkbox_status(link_container, 'out');
+                
             }
             
-        } else {
+            break;
             
-            link_container.removeClass('in');
-            link_container.addClass('out');
-            link_container.data('action', 'in');
+        case 'remove':
             
-        }
-        
-        // REMOVE
-    } else if(action == 'remove') {
-        
-        if(checkout && checkout != '0') {
+            if(checkout && checkout != '0') {
+                
+                change_checkbox_status(link_container, 'out');
+                change_icon($(link_container).find('.front_icon'), 'icon-play');
+                update_checkin_checkout_time(link_container, action);
+                
+            } else {
+                
+                change_checkbox_status(link_container, 'out');
+                
+            }            
             
-            link_container.removeClass('remove');
-            link_container.removeClass('in');
-            link_container.addClass('out');
-            link_container.data('action', 'in');
-            link_container.find('i').removeClass('icon-remove');
-            link_container.find('i').removeClass('icon-stop');
-            link_container.find('i').addClass('icon-play');
-            link_container.closest('div').find('.check_in_time').hide();
-            link_container.closest('div').find('.check_out_time').hide();
+            break;
             
-        } else {
+        case 'in':
+        case 'in_override':
             
-            link_container.removeClass('in');
-            link_container.addClass('out');
-            link_container.data('action', 'in');
+            if(action == 'in_override') { $(link_container).removeClass('out_override'); } // remove override so it can process normally (has to happen here in beginning and not in function so timing is correct)
             
-        }
-        
-        // IN
-    } else if(action == 'in') {
-        
-        if(checkout && checkout != '0') {
-            
-            link_container.removeClass('out');
-            link_container.removeClass('remove');
-            link_container.addClass('in');
-            link_container.data('action', 'out');
-            link_container.find('i').removeClass('icon-stop');
-            link_container.find('i').removeClass('icon-play');
-            link_container.find('i').addClass('icon-stop');
-            if(datetime) {
-                link_container.closest('div').find('.check_in_time').text(datetime);
-                link_container.closest('div').find('.check_in_time').show();
+            if(checkout && checkout != '0') {
+                
+                change_checkbox_status(link_container, 'in');
+                change_icon($(link_container).find('.front_icon'), 'icon-stop');
+                update_checkin_checkout_time(link_container, action, datetime);
+                
+            } else {
+                
+                change_checkbox_status(link_container, 'in');
+                change_icon($(link_container).find('.front_icon'), 'icon-ok');
+                
             }
             
-            link_container.removeClass('out');
-            link_container.removeClass('remove');
-            link_container.addClass('in');
-            link_container.data('action', 'out');
-            link_container.find('i').removeClass('icon-stop');
-            link_container.find('i').removeClass('icon-play');
-            link_container.find('i').addClass('icon-stop');
-            if(datetime) {
-                link_container.closest('div').find('.check_in_time').text(datetime);
-                link_container.closest('div').find('.check_in_time').show();
-            }
+            break;
             
-        } else {
+        case 'pending':
             
-            link_container.removeClass('out');
-            link_container.addClass('in');
-            link_container.data('action', 'out');
+            change_checkbox_status(link_container, 'pending');
+            change_icon($(link_container).find('.front_icon'), 'icon-spinner');
             
-        }
-        
+            break;
+            
+            
+            
     }
+    
     
 }
 
 function reset_printer_variables() {
+    
+    // generate code
     code = (Math.floor(Math.random()*9000) + 1000).toString();
+    
+    // if code has already been used, generate a new one.  Do this until unused code has been found
+    while ($.inArray(code, used_codes) > -1) {
+        code = (Math.floor(Math.random()*9000) + 1000).toString();
+    }
+    
+    // add new code to used list
+    used_codes.push(code);
+    
+    // generate three digit code
+    code_three = (Math.floor(Math.random()*900) + 100).toString();
+    
+    // if code has already been used, generate a new one.  Do this until unused code has been found
+    while ($.inArray(code_three, used_codes_three) > -1) {
+        code_three = (Math.floor(Math.random()*900) + 100).toString();
+    }
+    
+    // add new code to used list
+    used_codes_three.push(code_three);
+    
     user_prompt = 'BLANK';
 }
 

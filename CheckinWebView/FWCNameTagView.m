@@ -7,6 +7,7 @@
 //
 
 #import "FWCNameTagView.h"
+#import "UIKitCategories.h"
 
 NSMutableData *_responseData;
 NSString *subdomain;
@@ -115,7 +116,7 @@ NSString *subdomain;
     }
     @catch (NSException *exception) {} @finally {}
     
-    NSArray *fields = [NSArray arrayWithObjects: @"0", @"CODE", @"CODE3", @"CHILDLIST", @"CHILD", @"PARENTMOBILES", @"PARENTS", @"CELL", @"TAG", @"PROMPT", @"DATE", @"TIME", @"DATETIME", nil];
+    NSArray *fields = [NSArray arrayWithObjects: @"0", @"CODE", @"CODE3", @"CHILDLIST", @"CHILD", @"PARENTMOBILES", @"PARENTS", @"CELL", @"TAG", @"PROMPT", @"DATE", @"TIME", @"DATETIME", @"BIRTHDATE", nil];
     
     for (NSString *field in nametag_fields) {
         NSUInteger index = [fields indexOfObject:[nametag_fields valueForKey:field]];
@@ -240,20 +241,23 @@ NSString *subdomain;
                             
                             [self setValue:image forKeyPath:[NSString stringWithFormat:@"%@.image", field]];
 
-//                        } else {
-//                            // images causing errors
-//                            // set logo
-//                            @try {
-//                                // if picture is present
-//                                if(fieldKey) {
-//                                    
-//                                    // get picture from stored container
-//                                    //var picture = $('div#logo_base64_container').text();
-//                                    
-//                                    // if not found in stored container (first time through)
+                        } else {
+                            // images causing errors
+                            // set logo
+                            @try {
+                                // if picture is present
+                                if(fieldKey) {
+                                    
+                                    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:fieldKey]];
+                                    
+                                    [self setValue:[UIImage imageWithData:imageData] forKeyPath:[NSString stringWithFormat:@"%@.image", field]];
+                                    // get picture from stored container
+                                    //var picture = $('div#logo_base64_container').text();
+                                    
+                                    // if not found in stored container (first time through)
 //                                    if(!picture) {
-//                                        
-//                                        // convert picture to base64 with PHP
+                                    
+                                        // convert picture to base64 with PHP
 //                                        $.ajax({
 //                                        type: "POST",
 //                                        url: "../../../../../../../../ajax/convert_image_to_base64",
@@ -270,28 +274,33 @@ NSString *subdomain;
 //                                        }
 //                                        });
 //                                    }
-//                                    
-//                                    // if picture successfully encoded
-//                                    if(picture) { label.setObjectText(placeholder, picture); }
-//                                
-//                                }
-//                                
-//
-//                            }
-//                            @catch (NSException *exception) {
-//                                <#Handle an exception thrown in the @try block#>
-//                            }
-//                            @finally {
-//                                <#Code that gets executed whether or not an exception is thrown#>
-//                            }
+                                    
+                                    // if picture successfully encoded
+                                    //if(picture) { label.setObjectText(placeholder, picture); }
+                                
+                                }
+                                
+
+                            }
+                            @catch (NSException *exception) {
+                                //<#Handle an exception thrown in the @try block#>
+                            }
+                            @finally {
+                                //<#Code that gets executed whether or not an exception is thrown#>
+                            }
 //                            try {
 //                                
 //                            } catch(err) { }
                         }
                     } else {
                         @try {
-                            NSString *value = [all objectForKey:fieldKey];
-                            [self setValue:value forKeyPath:[NSString stringWithFormat:@"%@.text", field]];
+                            if([fieldKey rangeOfString:@"\""].location == NSNotFound){
+                                NSString *value = [all objectForKey:fieldKey];
+                                [self setValue:value forKeyPath:[NSString stringWithFormat:@"%@.text", field]];
+                            } else {
+                                NSString *value = [fieldKey stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                                [self setValue:value forKeyPath:[NSString stringWithFormat:@"%@.text", field]];
+                            }
                             
                         } @catch (NSException *exception) {} @finally {}
                     }

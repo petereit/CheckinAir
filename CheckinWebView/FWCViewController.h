@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FWCNameTagView.h"
 #import "FWCParentTagView.h"
-#import "FWCFamilyTagView.h"
+//#import "FWCFamilyTagView.h"
 
 @interface FWCViewController : UIViewController <UIWebViewDelegate, NSURLConnectionDelegate, UIPrintInteractionControllerDelegate, UIPrinterPickerControllerDelegate>{
     NSMutableData *_responseData;
@@ -21,5 +21,7 @@
 @property (strong, nonatomic) IBOutlet FWCNameTagView *childLabel;
 @property (strong, nonatomic) IBOutlet FWCParentTagView *parentLabel;
 @property (strong, nonatomic) IBOutlet FWCFamilyTagView *familyLabel;
+
+- (void)processLabels:(NSString *)printParent prompt:(NSString *)prompt;
 
 @end

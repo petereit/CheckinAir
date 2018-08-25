@@ -126,7 +126,16 @@
                 break;
             default:
                 @try {
-                    
+                    NSDictionary *all = [person objectForKey:@"all"];
+                    NSString *fieldKey = [nametag_fields objectForKey:field];
+                    if([fieldKey rangeOfString:@"\""].location == NSNotFound){
+                        NSString *value = [all objectForKey:fieldKey];
+                        [self setValue:value forKeyPath:[NSString stringWithFormat:@"%@.text", field]];
+                    } else {
+                        NSString *value = [fieldKey stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                        [self setValue:value forKeyPath:[NSString stringWithFormat:@"%@.text", field]];
+                    }
+
                 } @catch (NSException *exception) {} @finally {}
                 /*
                  try {
