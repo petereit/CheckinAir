@@ -180,8 +180,24 @@ NSString *subdomain;
                 break;
             case 8: //"TAG"
                 @try {
-                    NSString *group = [person valueForKey:@"group"];
-                    [self setValue:group forKeyPath:[NSString stringWithFormat:@"%@.text", field]];
+                    
+                    NSString *group_string;
+                    //NSString *group = [person valueForKey:@"group"];
+                    //NSDictionary *group = [person valueForKey:@"group"];
+
+                    for(id key in [person valueForKey:@"group"]){
+                        if(!group_string){
+                            group_string = [person valueForKeyPath:[@"group." stringByAppendingString:key]];
+                        } else {
+                            group_string = [NSString stringWithFormat:@"%@, %@", group_string, [person valueForKeyPath:[@"group." stringByAppendingString:key]]];
+                        }
+                    }
+//                    for (var key in group ) {
+//                        if (!group_string) { group_string += group[key]; }
+//                        else { group_string += ", " + group[key]; }
+//                    }
+                    
+                    [self setValue:group_string forKeyPath:[NSString stringWithFormat:@"%@.text", field]];
                 } @catch (NSException *exception) {} @finally {}
                 break;
             case 9: //"PROMPT"

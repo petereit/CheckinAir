@@ -204,18 +204,43 @@ NSString *subdomain;
         if(!([print isEqualToString:@"1"]))
             return NO;
         
+        //If none of these is true then don't print any labels
+        if(!([[queryStringDictionary valueForKey:@"parent"] isEqual: @"1"] ||
+           [[queryStringDictionary valueForKey:@"child"] isEqual: @"1"] ||
+           [[queryStringDictionary valueForKey:@"both"] isEqual: @"1"]
+           ))
+            return NO;
+        
         //Get print_parent value
         NSString *print_parent = [self.webView stringByEvaluatingJavaScriptFromString:
                                   @"(function() "
                                   "  {return $('input#print_parent').val();})"
                                   "();"];
-        
-        //Get print_additional_tags value
-        NSString *print_additional = [self.webView stringByEvaluatingJavaScriptFromString:
-                                  @"(function() "
-                                  "  {return $('input#print_additional').val();})"
-                                  "();"];
 
+        if([print_parent  isEqual: @"1"]){
+            
+            if([[queryStringDictionary valueForKey:@"both"] isEqual: @"1"] || [[queryStringDictionary valueForKey:@"parent"] isEqual: @"1"]){
+                //leave print_parent to 1
+            } else {
+                print_parent = @"0";
+            }
+        }
+        
+        //Get print_additional value
+        NSString *print_additional = [self.webView stringByEvaluatingJavaScriptFromString:
+                                      @"(function() "
+                                      "  {return $('input#print_additional').val();})"
+                                      "();"];
+        
+        if([print_additional  isEqual: @"1"]){
+            
+            if([[queryStringDictionary valueForKey:@"no_tags"] isEqual: @"1"] || [[queryStringDictionary valueForKey:@"additional"] isEqual: @"1"]){
+                //leave print_additional to 1
+            } else {
+                print_additional = @"0";
+            }
+        }
+        
         //Get nametag fields from Breeze
         NSData *objectData = [[self.webView stringByEvaluatingJavaScriptFromString:
                                @"(function() "
@@ -254,13 +279,26 @@ NSString *subdomain;
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                                  handler:^(UIAlertAction * action) {[self processLabels:print_parent
                                                                                                              additional:print_additional                                   prompt:@"BLANK"];}];
-            UIAlertAction *userPrompt = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                UITextField *prompt = alertController.textFields.firstObject;
-                if (![prompt.text isEqualToString:@""]) {
-                    
-                    [self processLabels:print_parent prompt:prompt.text];
-                }
-            }];
+            UIAlertAction *userPrompt = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * action) {
+                                                                     UITextField *prompt = alertController.textFields.firstObject;
+                                                                     if (![prompt.text isEqualToString:@""]) {
+                                                                     [self processLabels:print_parent
+                                                                              additional:print_additional
+                                                                                  prompt:prompt.text];
+                                                                     } else {
+                                                                         [self processLabels:print_parent
+                                                                                  additional:print_additional
+                                                                                      prompt:@"BLANK"];
+                                                                     }
+                                                                     }];
+//            UIAlertAction *userPrompt = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                UITextField *prompt = alertController.textFields.firstObject;
+//                if (![prompt.text isEqualToString:@""]) {
+//
+//                    [self processLabels:print_parent prompt:prompt.text];
+//                }
+//            }];
             [alertController addAction:cancelAction];
             [alertController addAction:userPrompt];
             [self presentViewController:alertController animated:YES completion:nil];
@@ -391,7 +429,7 @@ NSString *subdomain;
      "    var parent_xml = parent_label_xml; "
      "} "
      "update_link_container_style(person_id, 'in_override', checkout, '', true); "
-     "window.location = 'breezeprint:print?person_id=' + person_id + '&instance_id=' + instance_id + '&people_ids_json=' + people_ids_json + '&child_or_parent=' + child_or_parent + '&checkout=' + checkout;"
+     "window.location = 'breezeprint:print?person_id=' + person_id + '&instance_id=' + instance_id + '&people_ids_json=' + people_ids_json + '&parent=' + child_or_parent['parent'] + '&child=' + child_or_parent['child'] + '&both=' + child_or_parent['both'] + '&no_tags=' + child_or_parent['no_tags'] + '&additional=' + child_or_parent['additional'] + '&checkout=' + checkout;"
      "}\";"
      "document.getElementsByTagName('head')[0].appendChild(script);"];
 

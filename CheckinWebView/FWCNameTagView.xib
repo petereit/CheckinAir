@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +31,7 @@
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zgg-D9-rVg" userLabel="child_top_right">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zgg-D9-rVg" userLabel="child_top_right">
                                     <rect key="frame" x="348" y="0.0" width="348" height="41"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -42,26 +43,17 @@
                                 <constraint firstItem="jgb-d7-Cwy" firstAttribute="leading" secondItem="Pgg-PG-Xnd" secondAttribute="leading" id="n6D-bW-HiB"/>
                             </constraints>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nUF-I5-3lZ">
-                            <rect key="frame" x="0.0" y="41" width="696" height="292.33333333333331"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nUF-I5-3lZ">
+                            <rect key="frame" x="0.0" y="41" width="696" height="293"/>
                             <subviews>
                                 <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="drn-TZ-Izj" userLabel="child_image">
-                                    <rect key="frame" x="0.0" y="38.666666666666686" width="267.33333333333331" height="215"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="215" id="5Dw-Oz-tdd"/>
-                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="169" id="Yhy-h2-Yq2"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="Yhy-h2-Yq2"/>
-                                        </mask>
-                                    </variation>
+                                    <rect key="frame" x="0.0" y="39" width="348" height="215"/>
                                 </imageView>
                                 <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iEH-L3-UDI">
-                                    <rect key="frame" x="267.33333333333326" y="82.666666666666671" width="428.66666666666674" height="127.00000000000001"/>
+                                    <rect key="frame" x="348" y="83" width="348" height="127"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the Child's Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hVJ-7J-2di" userLabel="child_name">
-                                            <rect key="frame" x="0.0" y="0.0" width="428.66666666666669" height="86"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="348" height="86"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="86" id="sro-sN-7qc"/>
                                             </constraints>
@@ -70,7 +62,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXb-Ij-0V8" userLabel="child_sub_name">
-                                            <rect key="frame" x="0.0" y="86" width="428.66666666666669" height="41.000000000000028"/>
+                                            <rect key="frame" x="0.0" y="86" width="348" height="41"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="41" id="V1a-65-oA8"/>
                                             </constraints>
@@ -81,43 +73,26 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="PXb-Ij-0V8" firstAttribute="width" secondItem="hVJ-7J-2di" secondAttribute="width" id="DcM-Jg-rpB"/>
-                                        <constraint firstAttribute="trailing" secondItem="PXb-Ij-0V8" secondAttribute="trailing" id="Rf7-bs-unL"/>
-                                        <constraint firstAttribute="width" constant="527" id="Sse-9K-sjS"/>
                                         <constraint firstItem="PXb-Ij-0V8" firstAttribute="top" secondItem="hVJ-7J-2di" secondAttribute="bottom" id="VSa-su-IkH"/>
-                                        <constraint firstItem="hVJ-7J-2di" firstAttribute="top" secondItem="iEH-L3-UDI" secondAttribute="top" id="W2I-ef-Vbn"/>
-                                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="999" constant="527" id="dGQ-7l-DGx"/>
-                                        <constraint firstItem="hVJ-7J-2di" firstAttribute="leading" secondItem="iEH-L3-UDI" secondAttribute="leading" id="exi-uO-PZt"/>
-                                        <constraint firstAttribute="bottom" secondItem="PXb-Ij-0V8" secondAttribute="bottom" id="mEc-tO-B8l"/>
-                                        <constraint firstItem="PXb-Ij-0V8" firstAttribute="leading" secondItem="iEH-L3-UDI" secondAttribute="leading" id="re6-gS-sn4"/>
-                                        <constraint firstAttribute="trailing" secondItem="hVJ-7J-2di" secondAttribute="trailing" id="zHy-uq-jcW"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="Sse-9K-sjS"/>
-                                            <exclude reference="dGQ-7l-DGx"/>
-                                        </mask>
-                                    </variation>
                                 </stackView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="drn-TZ-Izj" firstAttribute="centerY" secondItem="nUF-I5-3lZ" secondAttribute="centerY" id="3Bq-21-mOy"/>
-                                <constraint firstItem="iEH-L3-UDI" firstAttribute="leading" secondItem="drn-TZ-Izj" secondAttribute="trailing" id="GoN-KD-fPC"/>
-                                <constraint firstItem="drn-TZ-Izj" firstAttribute="leading" secondItem="nUF-I5-3lZ" secondAttribute="leading" id="OxB-Fc-Szf"/>
-                                <constraint firstAttribute="trailing" secondItem="iEH-L3-UDI" secondAttribute="trailing" id="QLp-TX-yQM"/>
-                                <constraint firstItem="iEH-L3-UDI" firstAttribute="centerY" secondItem="nUF-I5-3lZ" secondAttribute="centerY" id="Ume-Dj-pVh"/>
+                                <constraint firstItem="iEH-L3-UDI" firstAttribute="top" secondItem="nUF-I5-3lZ" secondAttribute="top" constant="83" id="MTl-tB-6bd"/>
+                                <constraint firstItem="drn-TZ-Izj" firstAttribute="top" secondItem="nUF-I5-3lZ" secondAttribute="top" constant="39" id="kYY-QY-f5E"/>
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="fPj-qQ-zfU">
-                            <rect key="frame" x="0.0" y="333.33333333333326" width="696" height="40.666666666666686"/>
+                            <rect key="frame" x="0.0" y="334" width="696" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hQv-MA-E7S" userLabel="child_bottom_left">
-                                    <rect key="frame" x="0.0" y="0.0" width="348" height="40.666666666666686"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="348" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="0pn-HS-2gA" userLabel="child_bottom_right">
-                                    <rect key="frame" x="348" y="0.0" width="348" height="40.666666666666686"/>
+                                    <rect key="frame" x="348" y="0.0" width="348" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="82" id="GUI-sT-A8V"/>
                                     </constraints>
