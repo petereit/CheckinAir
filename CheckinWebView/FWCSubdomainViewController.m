@@ -85,7 +85,8 @@ UIWebView *webView;
     webView = [[UIWebView alloc] init];
     webView.delegate = self;
     
-    NSString *urlString = [NSString stringWithFormat:@"https://%@.breezechms.com/login", self.subdomain.text];
+    //https://[subdomain].breezechms.com/login/?redirect=https://[subdomain].breezechms.com/checkin/v3
+    NSString *urlString = [NSString stringWithFormat:@"https://%@.breezechms.com/login/?redirect=https://%@.breezechms.com/checkin/v3", self.subdomain.text, self.subdomain.text];
     NSURL *url =[NSURL URLWithString: urlString];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
@@ -102,7 +103,7 @@ UIWebView *webView;
         CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
         NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
         
-        self.bottomConstraint.constant = kbSize.height + 20;
+        self.bottomConstraint.constant = kbSize.height;
         
         [UIView animateWithDuration:animationDuration animations:^{
             [self.view layoutIfNeeded];

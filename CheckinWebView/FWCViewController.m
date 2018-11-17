@@ -32,7 +32,7 @@ NSString *subdomain;
 
 -(BOOL)prefersStatusBarHidden{
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults valueForKey:@"SettingsShowStatusBar"];
+    return (Boolean)[defaults valueForKey:@"SettingsShowStatusBar"];
 }
 
 - (void)viewDidLoad
@@ -42,7 +42,7 @@ NSString *subdomain;
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     subdomain = [defaults valueForKey:@"SettingsSubdomain"];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.breezechms.com/login", subdomain]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.breezechms.com/login/?redirect=https://%@.breezechms.com/checkin/v3", subdomain, subdomain]];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     queryStringDictionary = [[NSMutableDictionary alloc] init];
 
@@ -167,7 +167,7 @@ NSString *subdomain;
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSLog(@"shouldStartLoadWithRequest: %@", [[request URL] absoluteString]);
-
+    
     NSString *urlStr = [NSString stringWithString:[[request URL] absoluteString]];
     
     NSString *protocolPrefix = @"breezeprint:print?";
@@ -198,7 +198,7 @@ NSString *subdomain;
         //Get print value
         NSString *print = [self.webView stringByEvaluatingJavaScriptFromString:
                                   @"(function() "
-                                  "  {return $('input#print').val();})"
+                           "  {return ($('input#print').val() == '1' ? '1' : '') + (typeof(check_in_print) == 'undefined' ? '' : (check_in_print == '1' ? '1' : ''));})"
                                   "();"];
         
         if(!([print isEqualToString:@"1"]))
@@ -217,10 +217,10 @@ NSString *subdomain;
                                   "  {return $('input#print_parent').val();})"
                                   "();"];
 
-        if([print_parent  isEqual: @"1"]){
+        if([print_parent  isEqual: @"1"] || [[queryStringDictionary valueForKey:@"parent"] isEqual: @"1"]){
             
             if([[queryStringDictionary valueForKey:@"both"] isEqual: @"1"] || [[queryStringDictionary valueForKey:@"parent"] isEqual: @"1"]){
-                //leave print_parent to 1
+                print_parent = @"1";
             } else {
                 print_parent = @"0";
             }
@@ -232,10 +232,10 @@ NSString *subdomain;
                                       "  {return $('input#print_additional').val();})"
                                       "();"];
         
-        if([print_additional  isEqual: @"1"]){
+        if([print_additional  isEqual: @"1"] || [[queryStringDictionary valueForKey:@"additional"] isEqual: @"1"]){
             
             if([[queryStringDictionary valueForKey:@"no_tags"] isEqual: @"1"] || [[queryStringDictionary valueForKey:@"additional"] isEqual: @"1"]){
-                //leave print_additional to 1
+                print_additional = @"1";
             } else {
                 print_additional = @"0";
             }
@@ -417,7 +417,8 @@ NSString *subdomain;
     
     [self.webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');"
      "script.type = 'text/javascript';"
-     "script.text = \"function print_tag(person_id, instance_id, child_or_parent, checkout) { "
+     "script.text = \""
+     "function print_tag(person_id, instance_id, child_or_parent, checkout) { "
      "if($('input#print').val() != '1') { return false; } "
      "if(!child_or_parent) { child_or_parent['both'] = 1; } "
      "var people_ids_json = ''; "
@@ -430,7 +431,11 @@ NSString *subdomain;
      "} "
      "update_link_container_style(person_id, 'in_override', checkout, '', true); "
      "window.location = 'breezeprint:print?person_id=' + person_id + '&instance_id=' + instance_id + '&people_ids_json=' + people_ids_json + '&parent=' + child_or_parent['parent'] + '&child=' + child_or_parent['child'] + '&both=' + child_or_parent['both'] + '&no_tags=' + child_or_parent['no_tags'] + '&additional=' + child_or_parent['additional'] + '&checkout=' + checkout;"
-     "}\";"
+     "} "
+     "function send_to_printer(print_options) { "
+     "    window.location = 'breezeprint:print?person_id=' + print_options.response.id + '&instance_id=' + instance_id + '&people_ids_json=&parent=' + (print_options.response.print.parent ? '1' : '') + '&child=' + (print_options.response.print.child ? '1' : '') + '&both=&no_tags=&additional=' + (print_options.response.print.extra ? '1' : ''); "
+     "}"
+     "\"; "
      "document.getElementsByTagName('head')[0].appendChild(script);"];
 
     [SVProgressHUD dismiss];
