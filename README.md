@@ -15,6 +15,11 @@ Before the CheckinAir app can work, you must first follow the instructions to co
    1. Double-check that your Brother printer is configured correctly and connected to your wireless network 
    2. Confirm that your iPad/iPhone is connected to the same wireless network as your Brother printer
 
+## Labels
+This is from our Nursery Coordinator:
+
+The labels that we use with the printer are [LD Compatible Broker DK-2205 Rolls of White Label Tape / 2.4 in. x 100 ft](https://www.amazon.com/LD-Compatible-Brother-DK-2205-Rolls/dp/B01B5CHXL0). We have found the labels online from various companies, including Amazon.  Sometimes Amazon is cheaper but other companies online have offered better pricing at times.
+
 ## Support
 This app was produced by an independent developer, Mark Petereit, as a labor of love for my church, Family Worship Center in Florence, South Carolina. Breeze is aware of this product and supportive of my efforts, but **this is not a Breeze product.** They cannot offer any technical support.
 
