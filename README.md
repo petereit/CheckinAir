@@ -1,4 +1,4 @@
-## Exciting New Development!
+# Exciting New Development!
 I'm happy to announce that Breeze has released an official app supporting iPhones/iPads and AirPrint wireless label printers. I would recommend current users of my CheckinAir app to install the Breeze version as soon as possible. I will continue to respond to support requests through this transition period, but I do expect to end support and completely shut down this repository within the next few months.
 
 [<img src="https://raw.githubusercontent.com/petereit/CheckinAir/master/BreezeCheckIn.png" width=50%>](https://itunes.apple.com/us/app/breeze-check-in/id1451544075?ls=1&mt=8)
