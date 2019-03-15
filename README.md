@@ -1,7 +1,12 @@
-![alt text](https://is3-ssl.mzstatic.com/image/thumb/Purple127/v4/90/be/f6/90bef6db-da99-467f-9668-b33fbf7e88e9/mzl.naooxlyk.png/230x0w.jpg "Checkin Air Logo")
+## Exciting New Development!
+I'm happy to announce that Breeze has released an official app supporting iPhones/iPads and AirPrint wireless label printers. I would recommend current users of my CheckinAir app to install the Breeze version as soon as possible. I will continue to respond to support requests through this transition period, but I do expect to end support and completely shut down this repository within the next few months.
+
+[<img src="https://raw.githubusercontent.com/petereit/CheckinAir/master/BreezeCheckIn.png" width=50%>](https://itunes.apple.com/us/app/breeze-check-in/id1451544075?ls=1&mt=8)
 
 # CheckinAir
 Checkin Air allows you to use an iPad/iPhone and AirPrint wireless label printers to check in children in the Breeze Church Management System.
+
+![alt text](https://is3-ssl.mzstatic.com/image/thumb/Purple127/v4/90/be/f6/90bef6db-da99-467f-9668-b33fbf7e88e9/mzl.naooxlyk.png/230x0w.jpg "Checkin Air Logo")
 
 [<img src="https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg-25178aeef6eb6b83b96f5f2d004eda3bffbb37122de64afbaef7107b384a4132.svg">](https://itunes.apple.com/us/app/checkin-air/id1088690601?mt=8)
 
@@ -34,4 +39,3 @@ Thank you and God bless!
 Mark Petereit
 
 *The Breeze ChMS logo is used by permission.*
-# BreezeCheckIn
